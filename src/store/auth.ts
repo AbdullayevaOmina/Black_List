@@ -2,8 +2,7 @@ import { create } from "zustand";
 import { AuthStore } from "@auth-interface";
 import { auth } from "@service";
 import { toast } from "react-toastify";
-import { setDataToCookie } from "@cookie";
-58
+
 const useRegisterStore = create<AuthStore>((set) => ({
   data: [],
   isLoading: false,
@@ -15,7 +14,6 @@ const useRegisterStore = create<AuthStore>((set) => ({
       console.log(response);
 
       if (response.status === 201) {
-       
       } else if (response.status === 400)
         toast.warning("Wrong email or password!");
       else if (response.status === 404)

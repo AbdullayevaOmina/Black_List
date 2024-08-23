@@ -1,4 +1,4 @@
-import { getDataFromCookie, setDataToCookie } from "@cookie";
+import { getDataFromCookie } from "@cookie";
 import axios from "axios";
 
 const request = axios.create({

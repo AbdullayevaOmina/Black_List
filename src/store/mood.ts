@@ -2,12 +2,16 @@ import { create } from "zustand";
 
 interface DarkMoodStore {
   isDark: boolean;
-  changeMood: () => Promise<any>;
+  changeMood: () => Promise<void>;
 }
 
-const useDarkMoodStore = create<DarkMoodStore>((set, get) => ({
+const useDarkMoodStore = create<DarkMoodStore>((set) => ({
   isDark: true,
-  changeMood: () => {},
+  changeMood: async () => {
+    // Implement the logic to change the mood
+    set((state) => ({ isDark: !state.isDark }));
+    return Promise.resolve();
+  },
 }));
 
 export default useDarkMoodStore;

@@ -6,7 +6,7 @@ import { Signin } from "@auth-interface";
 import { Button, Card, Spinner, TextInput } from "flowbite-react";
 import { DarkModeButton } from "@dark-mode";
 import { ErrorMessage, Field, Form, Formik } from "formik";
-import { MaskedInput } from "@ui";
+
 // import frame from "../../assets/frame.png";
 // import Logo from "../../assets/logo2.png";
 import "./style.css";
@@ -16,13 +16,13 @@ export default function SignIn() {
   const navigate = useNavigate();
 
   const initialValues: Signin = {
-    phone_number: "",
+    username: "",
     password: "",
   };
 
   const handleSubmit = async (values: Signin) => {
-    const phNumber = values.phone_number.replace(/\D/g, "");
-    const payload = { ...values, phone_number: `+${phNumber}` };
+    const phNumber = values.username.replace(/\D/g, "");
+    const payload = { ...values, username: `+${phNumber}` };
     const status = await signin(payload);
     if (status === 201) {
       navigate("/main");
@@ -47,11 +47,18 @@ export default function SignIn() {
           >
             {({ isSubmitting }) => (
               <Form className="grid gap-2">
-                <MaskedInput
-                  name="phone_number"
-                  type="tel"
-                  mask="+998 (__) ___-__-__"
-                  placeholder="+998 (__) ___-__-__"
+                <Field
+                  name="username"
+                  type="text"
+                  as={TextInput}
+                  placeholder="User name"
+                  helperText={
+                    <ErrorMessage
+                      name="username"
+                      component="small"
+                      className="text-[red]"
+                    />
+                  }
                 />
                 <Field
                   name="password"

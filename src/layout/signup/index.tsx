@@ -3,14 +3,13 @@ import { Button, Card, Datepicker, Spinner, TextInput } from "flowbite-react";
 import { DarkModeButton } from "@dark-mode";
 import { schemaSignup } from "@validations";
 import { Signup } from "@auth-interface";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useRegisterStore } from "@store";
 import { ErrorMessage, Field, Form, Formik } from "formik";
-import { toast } from "react-toastify";
 
 export default function Signin() {
-  const navigate = useNavigate();
-  const { signup, signin } = useRegisterStore();
+  // const navigate = useNavigate();
+  const { signup } = useRegisterStore();
 
   const initialValues: Signup = {
     full_name: "",
@@ -24,7 +23,7 @@ export default function Signin() {
     try {
       const response = await signup(values);
       console.log(response);
-      
+
       // if (response.status === 201) {
       //   const resSignIn: any = signin({
       //     password: values.password,
