@@ -1,0 +1,68 @@
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "useDefineForClassFields": true,
+    "lib": ["ES2020", "DOM", "DOM.Iterable"],
+    "module": "ESNext",
+    "skipLibCheck": true,
+    "paths": {
+      "@/*": ["./*"],
+
+      "@types": ["./src/types"],
+      "@enums": ["./src/types/enums"],
+
+      "@utils": ["./src/utils"],
+      "@hooks": ["./src/hooks"],
+
+      "@components": ["./src/components"],
+      "@modals": ["./src/components/modals/index.ts"],
+      "@ui": ["./src/components/ui"],
+      "@sections": ["./src/components/sections"],
+
+      "@layout": ["./src/layout"],
+      "@pages": ["./src/pages"],
+      "@router": ["./src/router"],
+      "@routes": ["./src/router/routes.tsx"],
+      "@context": ["./src/context"],
+
+      "@service": ["./src/service/index.ts"],
+      "@cookie": ["./src/utils/token-service.ts"],
+
+      // --------------------- icons -----------------------
+      "@drawer-icons": ["./src/assets/icons/drawer-icons.tsx"],
+      "@global-icons": ["./src/assets/icons/global-icons.tsx"],
+
+      // --------------------------------------------------------
+      "@dark-mode": ["./src/utils/dark-mode.tsx"],
+
+      // --------------------- interface -----------------------
+      "@global-interface": ["./src/interfaces/global.ts"],
+      "@auth-interface": ["./src/interfaces/auth/register.ts"],
+      "@category-interface": ["./src/interfaces/category.ts"],
+      "@brands-interface": ["./src/interfaces/brands.ts"],
+      "@products-interface": ["./src/interfaces/products.ts"],
+      "@product-detail-interface": ["./src/interfaces/product-detail.ts"],
+
+      // --------------------------------------------------------
+      "@validations": ["./src/validations"],
+
+      // --------------------------------------------------------
+      "@store": ["./src/store/index.ts"]
+    },
+    /* Bundler mode */
+    "moduleResolution": "bundler",
+    "allowImportingTsExtensions": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "jsx": "react-jsx",
+
+    /* Linting */
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true
+  },
+  "include": ["src"],
+  "references": [{ "path": "./tsconfig.node.json" }]
+}
