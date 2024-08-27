@@ -8,7 +8,7 @@ export interface Signin {
 export interface Signup extends Signin {
   full_name: string;
   email: string;
-  date_of_birth: string | any;
+  date_of_birth: any;
 }
 
 export interface AuthStore {

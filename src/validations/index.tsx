@@ -6,10 +6,10 @@ export const schemaSignin = Yup.object().shape({
     .min(4, "Invalid User name")
     .required("User name required"),
   password: Yup.string()
-    .matches(
-      /^(?=.*[a-z])(?=.*[A-Z]).{6,}$/,
-      "Password must be at least 6 characters and contain at least one uppercase and one lowercase letter"
-    )
+    // .matches(
+    //   /^(?=.*[a-z])(?=.*[A-Z]).{6,}$/,
+    //   "Password must be at least 6 characters and contain at least one uppercase and one lowercase letter"
+    // )
     .required("Password is required"),
 });
 
@@ -17,8 +17,8 @@ export const schemaSignin = Yup.object().shape({
 export const schemaSignup = Yup.object().shape({
   full_name: Yup.string().required("Full name is required"),
   username: Yup.string().required("User name is required"),
-  date_of_birth: Yup.string().required("Date of birthday required"),
-  email: Yup.string().email("Email invalit ").required("Email is required"),
+  // date_of_birth: Yup.string().required("Date of birth is required"),
+  email: Yup.string().email("Invalid email").required("Email is required"),
   password: Yup.string()
     .matches(
       /^(?=.*[a-z])(?=.*[A-Z]).{6,}$/,

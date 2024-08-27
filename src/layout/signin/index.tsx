@@ -6,10 +6,9 @@ import { Signin } from "@auth-interface";
 import { Button, Card, Spinner, TextInput } from "flowbite-react";
 import { DarkModeButton } from "@dark-mode";
 import { ErrorMessage, Field, Form, Formik } from "formik";
-
-// import frame from "../../assets/frame.png";
-// import Logo from "../../assets/logo2.png";
+import { eyeIcon, eyeSlashIcon } from "@global-icons";
 import "./style.css";
+import { useState } from "react";
 
 export default function SignIn() {
   const { signin } = useRegisterStore();
@@ -20,22 +19,25 @@ export default function SignIn() {
     password: "",
   };
 
+  const [showPassword, setShowPassword] = useState(false);
+
+  const togglePasswordVisibility = () => {
+    setShowPassword((prev) => !prev);
+  };
+
   const handleSubmit = async (values: Signin) => {
-    const phNumber = values.username.replace(/\D/g, "");
-    const payload = { ...values, username: `+${phNumber}` };
-    const status = await signin(payload);
+    console.log(values);
+    const status = await signin(values);
     if (status === 201) {
       navigate("/main");
-    } else if (status === 404) navigate("/signup");
+    } else if (status === 404) {
+      navigate("/signup");
+    }
   };
 
   return (
     <div className="flex items-center justify-between w-screen h-screen px-5">
-      {/* <div className="hidden lg:relative w-[50%] bg-gra-200 p-28  lg:flex items-center justify-center">
-        <img src={frame} className="rotate-clockwise absolute w-[720px]" />
-        <img src={Logo} className="fixed z-10 w-[320px]" />
-      </div> */}
-      <div className="w-[100%] lg:w-[100%] bg-gra-200 flex justify-center">
+      <div className="w-full lg:w-full bg-gra-200 flex justify-center">
         <Card className="w-96 shadow-lg">
           <h1 className="text-center text-[#0e7490] my-3 text-3xl font-semibold dark:text-white">
             Sign In
@@ -56,23 +58,33 @@ export default function SignIn() {
                     <ErrorMessage
                       name="username"
                       component="small"
-                      className="text-[red]"
+                      className="text-red-500"
                     />
                   }
                 />
-                <Field
-                  name="password"
-                  type="password"
-                  as={TextInput}
-                  placeholder="Password"
-                  helperText={
-                    <ErrorMessage
-                      name="password"
-                      component="small"
-                      className="text-[red] "
-                    />
-                  }
-                />
+
+                <div className="relative">
+                  <Field
+                    name="password"
+                    type={showPassword ? "text" : "password"}
+                    as={TextInput}
+                    placeholder="Password"
+                    helperText={
+                      <ErrorMessage
+                        name="password"
+                        component="small"
+                        className="text-red-500"
+                      />
+                    }
+                  />
+                  <button
+                    type="button"
+                    onClick={togglePasswordVisibility}
+                    className="absolute right-3 top-3 flex items-center text-gray-600"
+                  >
+                    {showPassword ? eyeSlashIcon : eyeIcon}
+                  </button>
+                </div>
 
                 <div className="flex justify-between mb-4">
                   <small className="dark:text-gray-300">
@@ -83,10 +95,10 @@ export default function SignIn() {
                   </Link>
                 </div>
 
-                <Button type="submit">
+                <Button type="submit" disabled={isSubmitting}>
                   {isSubmitting ? (
                     <>
-                      <Spinner aria-label="Default status example" size="md" />{" "}
+                      <Spinner aria-label="Loading" size="md" />
                     </>
                   ) : (
                     "Submit"

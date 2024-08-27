@@ -1,7 +1,7 @@
 import router from "@routes";
 import { Link, useLocation } from "react-router-dom";
 import { DarkModeButton } from "@dark-mode";
-import { SettingsIcon, MessagesIcon } from "@drawer-icons";
+import { SettingsIcon } from "@drawer-icons";
 
 export default function Sidebar() {
   const location = useLocation();
@@ -30,18 +30,6 @@ export default function Sidebar() {
                 </Link>
               </li>
             ))}
-            <li>
-              <a
-                href="#"
-                className="flex items-center p-2 text-base font-medium text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
-              >
-                {MessagesIcon}
-                <span className="flex-1 ml-3 whitespace-nowrap">Messages</span>
-                <span className="inline-flex justify-center items-center w-5 h-5 text-xs font-semibold rounded-full text-primary-800 bg-sky-200 dark:bg-sky-600">
-                  4
-                </span>
-              </a>
-            </li>
           </ul>
           <ul className="pt-5 mt-5 space-y-2 border-t border-gray-200 dark:border-gray-700">
             <li>

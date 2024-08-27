@@ -1,11 +1,11 @@
-import { deleteIcon2, editIcon2 } from "@global-icons";
-import { getDataFromCookie } from "@cookie";
+// import { deleteIcon2, editIcon2 } from "@global-icons";
+// import { getDataFromCookie } from "@cookie";
 
 const index = () => {
-  const adminFName = getDataFromCookie("first_name");
-  const adminLName = getDataFromCookie("last_name");
-  const adminPhone = getDataFromCookie("admin_phone_number");
-  const adminEmail = getDataFromCookie("admin_email");
+  // const adminFName = getDataFromCookie("first_name");
+  // const adminLName = getDataFromCookie("last_name");
+  // const adminPhone = getDataFromCookie("admin_phone_number");
+  // const adminEmail = getDataFromCookie("admin_email");
   return (
     <div className="p-4 md:pl-[275px] w-full pt-20 h-[100vh]">
       <div className="dark:bg-gray-700 bg-white w-full h-full flex flex-col gap-5 items-center p-6 rounded-lg">
@@ -27,7 +27,7 @@ const index = () => {
           </svg>
         </div>
 
-        <div className="w-full">
+        {/* <div className="w-full">
           <h1 className="text-4xl text-center font-bold">
             {adminFName} {adminLName}
           </h1>
@@ -39,12 +39,12 @@ const index = () => {
               Email: <b className="ml-8">{adminEmail}</b>
             </h3>
           </div>
-        </div>
+        </div> */}
 
-        <div className="flex w-full justify-end gap-3 mt-16">
+        {/* <div className="flex w-full justify-end gap-3 mt-16">
           <button>{editIcon2}</button>
           <button>{deleteIcon2}</button>
-        </div>
+        </div> */}
       </div>
     </div>
   );

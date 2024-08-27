@@ -1,8 +1,8 @@
-import { getDataFromCookie } from "@cookie";
 import axios from "axios";
+import { getDataFromCookie } from "@cookie";
 
 const request = axios.create({
-  baseURL: "https://ecomapi.ilyosbekdev.uz",
+  baseURL: "",
   headers: {
     Authorization: `Bearer ${getDataFromCookie("access_token")}`,
   },

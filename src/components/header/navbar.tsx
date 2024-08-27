@@ -1,17 +1,20 @@
 import { CloseIcon, MenuIcon, SearchIcon2 } from "@drawer-icons";
 import { getDataFromCookie, removeDataFromCookie } from "@cookie";
 import { Link, useNavigate } from "react-router-dom";
-import avatar from "../../assets/avatar.png";
-import logo_white from "../../assets/logo-white.png";
-// import logo_black from "../../assets/logo-black.png";
+// import avatar from "../../assets/avatar.png";
+import logo1 from "../../assets/logo-black.png";
+import logo2 from "../../assets/logo-white.png";
 
 import { GlobalSearch } from "@ui";
 
 const index = () => {
   const navigate = useNavigate();
+  const isDark = false;
 
+  
+  
   const handleLogout = async () => {
-    const keysToRemove: string[] = ["access_token", "refresh_token" ,];
+    const keysToRemove: string[] = ["access_token", "refresh_token"];
     keysToRemove.forEach((key) => {
       removeDataFromCookie(key);
     });
@@ -38,13 +41,21 @@ const index = () => {
               className="hidden md:flex items-center justify-center w-[220px]"
             >
               <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">
-                <img src={logo_white} className="h-7" alt="logo image" />
+                <img
+                  src={isDark ? logo1 : logo2}
+                  className="h-7"
+                  alt="logo image"
+                />
               </span>
             </Link>
             <GlobalSearch />
             <div className="w-full flex justify-center md:hidden">
               <Link to="/main" className="">
-                <img src={logo_white} className="h-7" alt="logo image" />
+                <img
+                  src={isDark ? logo1 : logo2}
+                  className="h-7"
+                  alt="logo image"
+                />
               </Link>
             </div>
           </div>
@@ -68,11 +79,26 @@ const index = () => {
               data-dropdown-toggle="dropdown"
             >
               <span className="sr-only">Open user menu</span>
-              <img
+              {/* <img
                 className="w-9 h-9 rounded-full"
                 src={avatar}
                 alt="user photo"
-              />
+              /> */}
+              <svg
+                className="w-[30px] h-[30px] text-gray-500 dark:text-white rounded-full shadow dark:shadow-gray-2y00 shadow-gray-700"
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                fill="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M12 4a4 4 0 1 0 0 8 4 4 0 0 0 0-8Zm-2 9a4 4 0 0 0-4 4v1a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2v-1a4 4 0 0 0-4-4h-4Z"
+                  clip-rule="evenodd"
+                />
+              </svg>
             </button>
 
             {/* <!-- Dropdown menu --> */}

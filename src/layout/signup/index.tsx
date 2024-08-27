@@ -1,15 +1,15 @@
 "use client";
+import { useState } from "react";
+import { Link } from "react-router-dom";
 import { Button, Card, Datepicker, Spinner, TextInput } from "flowbite-react";
 import { DarkModeButton } from "@dark-mode";
 import { schemaSignup } from "@validations";
 import { Signup } from "@auth-interface";
-import { Link } from "react-router-dom";
-import { useRegisterStore } from "@store";
 import { ErrorMessage, Field, Form, Formik } from "formik";
+import { eyeIcon, eyeSlashIcon } from "@global-icons";
 
 export default function Signin() {
-  // const navigate = useNavigate();
-  const { signup } = useRegisterStore();
+  const [showPassword, setShowPassword] = useState(false);
 
   const initialValues: Signup = {
     full_name: "",
@@ -19,23 +19,25 @@ export default function Signin() {
     password: "",
   };
 
-  const handleSubmit = async (values: Signup) => {
-    try {
-      const response = await signup(values);
-      console.log(response);
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
 
-      // if (response.status === 201) {
-      //   const resSignIn: any = signin({
-      //     password: values.password,
-      //   });
-      //   if (resSignIn === 200) {
-      //     toast.success("You registrated! 🤗");
-      //     navigate("/main");
-      //   }
-      // }
-    } catch (error) {
-      console.error("Sign-up error:", error);
-    }
+  const handleDateChange = (date: any, setFieldValue: any) => {
+    const formattedDate = formatDate(date);
+    setFieldValue("date_of_birth", formattedDate); // Formik'ga sana qiymatini qo'shish
+  };
+
+  const formatDate = (date: Date) => {
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const day = String(date.getDate()).padStart(2, "0");
+    return `${year}-${month}-${day}`;
+  };
+
+  const handleSubmit = async (values: Signup) => {
+    console.log(values);
+    // Add signup and redirect logic here
   };
 
   return (
@@ -49,7 +51,7 @@ export default function Signin() {
           validationSchema={schemaSignup}
           onSubmit={handleSubmit}
         >
-          {({ isSubmitting }) => (
+          {({ isSubmitting, setFieldValue, values }) => (
             <Form className="grid gap-1">
               <Field
                 name="full_name"
@@ -79,17 +81,20 @@ export default function Signin() {
                 }
               />
 
-              <Field
-                name="date_of_birth"
-                as={Datepicker}
+              <Datepicker
+                className="mb-[10px]"
+                showTodayButton={false}
+                showClearButton={false}
                 placeholder="Date of birth"
-                helperText={
-                  <ErrorMessage
-                    name="date_of_birth"
-                    component="small"
-                    className="text-[red]"
-                  />
+                value={values.date_of_birth}
+                onSelectedDateChanged={(date) =>
+                  handleDateChange(date, setFieldValue)
                 }
+              />
+              <ErrorMessage
+                name="date_of_birth"
+                component="small"
+                className="text-[red]"
               />
 
               <Field
@@ -106,23 +111,32 @@ export default function Signin() {
                 }
               />
 
-              <Field
-                name="password"
-                type="password"
-                as={TextInput}
-                placeholder="Password"
-                helperText={
-                  <ErrorMessage
-                    name="password"
-                    component="small"
-                    className="text-[red]"
-                  />
-                }
-              />
+              <div className="relative">
+                <Field
+                  name="password"
+                  type={showPassword ? "text" : "password"}
+                  as={TextInput}
+                  placeholder="Password"
+                  helperText={
+                    <ErrorMessage
+                      name="password"
+                      component="small"
+                      className="text-[red]"
+                    />
+                  }
+                />
+                <button
+                  type="button"
+                  onClick={togglePasswordVisibility}
+                  className="absolute right-3 top-3 flex items-center text-gray-600"
+                >
+                  {showPassword ? eyeSlashIcon : eyeIcon}
+                </button>
+              </div>
 
               <div className="flex justify-between mb-4">
-                <small className="dark:text-gray-300 ">
-                  Are you already registered?
+                <small className="dark:text-gray-300">
+                  Already registered?
                 </small>
                 <Link to="/" className="text-[13px] text-sky-500">
                   Sign In
@@ -132,7 +146,7 @@ export default function Signin() {
               <Button type="submit">
                 {isSubmitting ? (
                   <>
-                    <Spinner aria-label="Spinner button example" size="sm" />{" "}
+                    <Spinner aria-label="Loading" size="sm" />
                   </>
                 ) : (
                   "Submit"
