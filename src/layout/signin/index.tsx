@@ -14,8 +14,8 @@ export default function SignIn() {
   const navigate = useNavigate();
 
   const initialValues: Signin = {
-    username: "",
-    password: "",
+    username: "feruza",
+    password: "feruza17",
   };
 
   const [showPassword, setShowPassword] = useState(false);

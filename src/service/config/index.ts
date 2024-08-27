@@ -2,9 +2,9 @@ import axios from "axios";
 import { getDataFromCookie } from "@cookie";
 
 const request = axios.create({
-  baseURL: "",
+  baseURL: "http://13.126.34.169:5555", // Add your base URL here
   headers: {
-    Authorization: `Bearer ${getDataFromCookie("access_token")}`,
+    Authorization: `Bearer ${getDataFromCookie("access_token") || ""}`,
   },
 });
 
