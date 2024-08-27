@@ -1,4 +1,5 @@
 "use client";
+import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useRegisterStore } from "@store";
 import { schemaSignin } from "@validations";
@@ -7,8 +8,6 @@ import { Button, Card, Spinner, TextInput } from "flowbite-react";
 import { DarkModeButton } from "@dark-mode";
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import { eyeIcon, eyeSlashIcon } from "@global-icons";
-import "./style.css";
-import { useState } from "react";
 
 export default function SignIn() {
   const { signin } = useRegisterStore();
@@ -26,9 +25,9 @@ export default function SignIn() {
   };
 
   const handleSubmit = async (values: Signin) => {
-    console.log(values);
     const status = await signin(values);
-    if (status === 201) {
+    if (status === 200) {
+      // toast.success("welcome");
       navigate("/main");
     } else if (status === 404) {
       navigate("/signup");

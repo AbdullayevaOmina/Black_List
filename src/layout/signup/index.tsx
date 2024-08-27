@@ -1,16 +1,18 @@
 "use client";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Button, Card, Datepicker, Spinner, TextInput } from "flowbite-react";
 import { DarkModeButton } from "@dark-mode";
 import { schemaSignup } from "@validations";
 import { Signup } from "@auth-interface";
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import { eyeIcon, eyeSlashIcon } from "@global-icons";
+import { useRegisterStore } from "@store";
 
 export default function Signin() {
+  const { signup, signin } = useRegisterStore();
+  const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
-
   const initialValues: Signup = {
     full_name: "",
     username: "",
@@ -37,7 +39,16 @@ export default function Signin() {
 
   const handleSubmit = async (values: Signup) => {
     console.log(values);
-    // Add signup and redirect logic here
+    const status = await signup(values);
+    if (status === 200) {
+      const signinStatus = await signin({
+        password: values.password,
+        username: values.username,
+      });
+      if (signinStatus === 200) {
+        navigate("/main");
+      }
+    }
   };
 
   return (
