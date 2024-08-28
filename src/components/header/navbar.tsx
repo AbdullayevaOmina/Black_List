@@ -21,7 +21,7 @@ const index = () => {
 
   return (
     <>
-      <nav className="bg-white border-b border-gray-200 px-2 pr-4 md:px-4  py-[5px] dark:bg-gray-800 dark:border-gray-700 fixed left-0 right-0 top-0 z-40">
+      <nav className="bg-white border-b border-gray-200 px-2 pr-4 md:px-4 py-[5px] dark:bg-gray-800 dark:border-gray-700 fixed left-0 right-0 top-0 z-40">
         <div className="flex flex-wrap justify-between items-center w-full">
           <div className="flex justify-start items-center w-11/12">
             <button

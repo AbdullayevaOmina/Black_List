@@ -4,7 +4,7 @@ import { Table } from "flowbite-react";
 
 const HRPage = () => {
   return (
-    <div className="p-4 md:pl-[275px] w-full h-[110vh] pt-[75px]">
+    <div className="p-4 md:pl-[275px] w-full h-[110vh] pt-[70px]">
       {/* <div className="flex justify-end mb-3">
         <AddEmpoyleeModal />
       </div> */}

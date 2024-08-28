@@ -4,7 +4,7 @@ import { Table } from "flowbite-react";
 
 const UsersPage = () => {
   return (
-    <div className="p-4 md:pl-[275px] w-full h-[110vh] pt-[75px]">
+    <div className="p-4 md:pl-[275px] w-full h-[110vh] pt-[70px]">
       <div className="overflow-x-auto w-full">
         <div className="w-full flex justify-between p-3 px-4 bg-white dark:bg-gray-800 rounded-t-lg">
           <GlobalSearch />
