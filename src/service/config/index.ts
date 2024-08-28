@@ -26,7 +26,7 @@ import axios from "axios";
 import { getDataFromCookie } from "@cookie";
 
 const request = axios.create({
-  baseURL: "http://13.126.34.169:5555", // HTTP URL ni qo'llash
+  baseURL: "https://authbl.ulgur.uz", // HTTP URL ni qo'llash
   headers: {
     Authorization: `Bearer ${getDataFromCookie("access_token") || ""}`,
   },
