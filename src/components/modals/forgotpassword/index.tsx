@@ -95,8 +95,8 @@ export function ForgotPasswordModal() {
                         helperText={
                           <ErrorMessage
                             name="email"
-                            component="small"
-                            className="text-red-600"
+                            component="b"
+                            className="text-red-600 text-[12px]"
                           />
                         }
                       />
