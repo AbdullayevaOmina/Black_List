@@ -48,6 +48,16 @@ export const schemaProduct = Yup.object().shape({
   name: Yup.string().required("Product name is required"),
   price: Yup.number().required("Price is required"),
 });
+
+export const schemaForgotPassword = Yup.object().shape({
+  email: Yup.string().email("Invalid email").required("Email is required"),
+});
+
+export const schemaResetPassword = Yup.object().shape({
+  new_password: Yup.string().required("New Password is required"),
+  reset_token: Yup.string().required("Code is required"),
+});
+
 // ---------------------- Product ----------------------
 export const schemaProductupdate = Yup.object().shape({
   // category_id: Yup.number().required("Category is required"),

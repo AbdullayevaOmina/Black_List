@@ -1,21 +1,22 @@
 "use client";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { useRegisterStore } from "@store";
+import { useAuthStore } from "@store";
 import { schemaSignin } from "@validations";
 import { Signin } from "@auth-interface";
 import { Button, Card, Spinner, TextInput } from "flowbite-react";
 import { DarkModeButton } from "@dark-mode";
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import { eyeIcon, eyeSlashIcon } from "@global-icons";
+import { ForgotPasswordModal } from "@modals";
 
 export default function SignIn() {
-  const { signin } = useRegisterStore();
+  const { signin } = useAuthStore();
   const navigate = useNavigate();
 
   const initialValues: Signin = {
-    username: "feruza",
-    password: "feruza17",
+    username: "",
+    password: "",
   };
 
   const [showPassword, setShowPassword] = useState(false);
@@ -86,9 +87,10 @@ export default function SignIn() {
                 </div>
 
                 <div className="flex justify-between mb-4">
-                  <small className="dark:text-gray-300">
+                  {/* <small className="dark:text-gray-300">
                     Not registered yet?
-                  </small>
+                  </small> */}
+                  <ForgotPasswordModal />
                   <Link to="/signup" className="text-[13px] text-sky-500">
                     Sign Up
                   </Link>

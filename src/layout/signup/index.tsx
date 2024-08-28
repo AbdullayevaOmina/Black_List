@@ -7,10 +7,10 @@ import { schemaSignup } from "@validations";
 import { Signup } from "@auth-interface";
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import { eyeIcon, eyeSlashIcon } from "@global-icons";
-import { useRegisterStore } from "@store";
+import { useAuthStore } from "@store";
 
 export default function Signin() {
-  const { signup, signin } = useRegisterStore();
+  const { signup, signin } = useAuthStore();
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const initialValues: Signup = {

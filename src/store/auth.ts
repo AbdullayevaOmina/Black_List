@@ -1,17 +1,17 @@
 import { create } from "zustand";
-import { AuthStore, Signin } from "@auth-interface";
+import { AuthStore, ResetPassword, Signin } from "@auth-interface";
 import { auth } from "@service";
 import { toast } from "react-toastify";
 import { setDataToCookie } from "../utils/token-service";
 
-const useRegisterStore = create<AuthStore>((set) => ({
+const useAuthStore = create<AuthStore>((set) => ({
   data: [],
   isLoading: false,
 
-  signin: async (dataa: Signin) => {
+  signin: async (data: Signin) => {
     set({ isLoading: true });
     try {
-      const response: any = await auth.signin(dataa);
+      const response: any = await auth.signin(data);
       if (response.status === 200) {
         setDataToCookie("access_token", response.data.access_token);
         setDataToCookie("refresh_token", response.data.refresh_token);
@@ -23,7 +23,6 @@ const useRegisterStore = create<AuthStore>((set) => ({
       } else if (response.status === 500) {
         toast.warning("Sorry, the connection to the server has been lost");
       }
-
       return response.status;
     } catch (error) {
       console.error("Sign-in error:", error);
@@ -45,6 +44,31 @@ const useRegisterStore = create<AuthStore>((set) => ({
       set({ isLoading: false });
     }
   },
+
+  forgot_password: async (email: string) => {
+    set({ isLoading: true });
+    try {
+      const response: any = await auth.forgot_password(email);
+
+      return response.status;
+    } catch (error) {
+      console.error("forgot_password error:", error);
+    } finally {
+      set({ isLoading: false });
+    }
+  },
+
+  reset_password: async (data: ResetPassword) => {
+    set({ isLoading: true });
+    try {
+      const response: any = await auth.reset_password(data);
+      return response.status;
+    } catch (error) {
+      console.error("reset_password error:", error);
+    } finally {
+      set({ isLoading: false });
+    }
+  },
 }));
 
-export default useRegisterStore;
+export default useAuthStore;

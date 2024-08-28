@@ -1,2 +1,2 @@
-import useRegisterStore from "./auth";
-export { useRegisterStore };
+import useAuthStore from "./auth";
+export { useAuthStore };
