@@ -127,6 +127,7 @@ const index = () => {
             <Dropdown
               arrowIcon={false}
               inline
+              className="w-[200px]"
               label={<Avatar alt="User settings" img={avatar} rounded />}
             >
               <Dropdown.Header>

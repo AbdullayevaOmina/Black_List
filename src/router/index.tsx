@@ -26,13 +26,14 @@ const index = () => {
           path="/main/*"
           element={<RequireAuth element={<MainLayout />} />}
         >
-        {/* <Route index element={<SignIn />} />
+          {/* <Route index element={<SignIn />} />
         <Route path="signup" element={<SignUp />} />
         <Route path="/main/*" element={<MainLayout />}> */}
           <Route index element={<Home />} />
           <Route path="empoylees" element={<Empoylees />} />
           <Route path={`empoylees/empyle:${id}`} element={<EmpoyleePage />} />
           <Route path="settings" element={<Settings />} />
+          <Route path="*" element={<NotFound />} />
         </Route>
         <Route path="*" element={<NotFound />} />
       </Route>
