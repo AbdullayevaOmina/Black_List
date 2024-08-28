@@ -2,7 +2,10 @@ import axios from "axios";
 import { getDataFromCookie } from "@cookie";
 
 const request = axios.create({
-  baseURL: "http://13.126.34.169:5555", // Add your base URL here
+  baseURL:
+    process.env.NODE_ENV === "production"
+      ? "https://your-production-server.com" // HTTPS URL ni qo'llash
+      : "http://13.126.34.169:5555", // Lokalhost uchun HTTP URL
   headers: {
     Authorization: `Bearer ${getDataFromCookie("access_token") || ""}`,
   },
