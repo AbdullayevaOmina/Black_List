@@ -26,7 +26,7 @@ export function AddEmpoyleeModal() {
 
   return (
     <>
-      <Button onClick={() => setOpenModal(true)}>Add Empoylee</Button>
+      <Button onClick={() => setOpenModal(true)}>+ Add</Button>
       <Modal
         dismissible
         show={openModal}

@@ -26,7 +26,7 @@ const GlobalSearch = () => {
         <label htmlFor="topbar-search" className="sr-only">
           Search
         </label>
-        <div className="relative ml-10 md:w-72 lg:w-[400px] xl:w-[500px]">
+        <div className="relative md:w-72 lg:w-[400px] xl:w-[500px]">
           <div className="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
             {SearchIcon}
           </div>

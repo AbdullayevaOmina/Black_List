@@ -1,4 +1,9 @@
-import { CatgoryIcon, OwerviewIcon } from "@drawer-icons";
+import {
+  CatgoryIcon,
+  OwerviewIcon,
+  usersGroupIcon,
+  bagIcon,
+} from "@drawer-icons";
 
 const router = [
   {
@@ -9,6 +14,16 @@ const router = [
   {
     path: "/main/empoylees",
     content: "Empoylees",
+    icon: bagIcon,
+  },
+  {
+    path: "/main/users",
+    content: "Users",
+    icon: usersGroupIcon,
+  },
+  {
+    path: "/main/hr",
+    content: "HR",
     icon: CatgoryIcon,
   },
 ];

@@ -2,12 +2,9 @@ import { GlobalSearch } from "@ui";
 import { AddEmpoyleeModal } from "@modals";
 import { Table } from "flowbite-react";
 
-const Empoylees = () => {
+const UsersPage = () => {
   return (
     <div className="p-4 md:pl-[275px] w-full h-[110vh] pt-[75px]">
-      {/* <div className="flex justify-end mb-3">
-        <AddEmpoyleeModal />
-      </div> */}
       <div className="overflow-x-auto w-full">
         <div className="w-full flex justify-between p-3 px-4 bg-white dark:bg-gray-800 rounded-t-lg">
           <GlobalSearch />
@@ -34,4 +31,4 @@ const Empoylees = () => {
   );
 };
 
-export default Empoylees;
+export default UsersPage;

@@ -5,7 +5,15 @@ import {
   RouterProvider,
 } from "react-router-dom";
 import App from "../App";
-import { Home, Empoylees, EmpoyleePage, NotFound, Settings } from "@pages";
+import {
+  Home,
+  Empoylees,
+  EmpoyleePage,
+  NotFound,
+  Settings,
+  UsersPage,
+  HRPage,
+} from "@pages";
 import { MainLayout, SignIn, SignUp } from "@layout";
 import { getDataFromCookie } from "@cookie";
 
@@ -31,6 +39,8 @@ const index = () => {
         <Route path="/main/*" element={<MainLayout />}> */}
           <Route index element={<Home />} />
           <Route path="empoylees" element={<Empoylees />} />
+          <Route path="users" element={<UsersPage />} />
+          <Route path="hr" element={<HRPage />} />
           <Route path={`empoylees/empyle:${id}`} element={<EmpoyleePage />} />
           <Route path="settings" element={<Settings />} />
           <Route path="*" element={<NotFound />} />
