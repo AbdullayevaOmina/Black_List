@@ -22,7 +22,7 @@ const GlobalSearch = () => {
 
   return (
     <>
-      <form className="hidden md:block">
+      <form className="w-full md:w-auto">
         <label htmlFor="topbar-search" className="sr-only">
           Search
         </label>

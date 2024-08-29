@@ -98,7 +98,7 @@ export const SettingsIcon: ReactNode = (
 export const OwerviewIcon: ReactNode = (
   <svg
     aria-hidden="true"
-    className="w-6 h-6 transition duration-75 text-gray-500 dark:group-hover:text-white"
+    className="w-6 h-6 text-gray-500"
     fill="currentColor"
     viewBox="0 0 20 20"
     xmlns="http://www.w3.org/2000/svg"

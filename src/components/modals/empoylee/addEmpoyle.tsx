@@ -17,16 +17,14 @@ export function AddEmpoyleeModal() {
   }, [openModal]);
 
   const initialValues = {
-    name: "",
-    price: null,
-    category_id: null,
-    brand_category_id: null,
-    brand_id: null,
+    username: "",
   };
 
   return (
     <>
-      <Button onClick={() => setOpenModal(true)}>+ Add</Button>
+      <Button onClick={() => setOpenModal(true)} className="w-full md:w-auto">
+        + Add
+      </Button>
       <Modal
         dismissible
         show={openModal}
@@ -51,7 +49,7 @@ export function AddEmpoyleeModal() {
                     {({ field }: any) => (
                       <TextInput
                         {...field}
-                        placeholder="Full Name"
+                        placeholder="User Name"
                         helperText={
                           <ErrorMessage
                             name="name"

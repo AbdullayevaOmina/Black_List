@@ -1,8 +1,8 @@
 import { DarkThemeToggle } from "flowbite-react";
 import { useEffect, useState } from "react";
 
+// ================== Dark & Light Mode ===================
 export const DarkModeButton = () => {
-  // ================== Dark & Light Mode ===================
   const [darkMode, setDarkMode] = useState<boolean>(() => {
     const savedMode = localStorage.getItem("darkMode");
     return savedMode === "true";
