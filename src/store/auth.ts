@@ -17,6 +17,7 @@ const useAuthStore = create<AuthStore>((set) => ({
         setDataToCookie("access_token", response.data.access_token);
         setDataToCookie("refresh_token", response.data.refresh_token);
         setDataToCookie("role", response.data.role);
+        window.location.reload();
       } else if (response.status === 400) {
         toast.warning("Wrong email or password!");
       } else if (response.status === 404) {
