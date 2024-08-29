@@ -14,7 +14,7 @@ export function GlobalPagination(props: PaginationProps) {
   const handleChange = (value: number) => {
     props.onPageChange(value);
     const searchParams = new URLSearchParams(location.search);
-    searchParams.set("page", `${value}`);
+    searchParams.set("offset", `${value}`);
     navigate(`?${searchParams}`);
   };
 

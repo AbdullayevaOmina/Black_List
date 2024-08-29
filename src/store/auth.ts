@@ -79,10 +79,10 @@ const useAuthStore = create<AuthStore>((set) => ({
       if (response.status === 200) {
         set({
           data: response.data.users,
-          totalCount: Math.ceil(response.data.users.lenght / params.limit),
+          totalCount: Math.ceil(response.data.count / params.limit),
         });
       }
-      console.log(response);
+      console.log(response.data);
       return response.status;
     } catch (error) {
       console.error("reset_password error:", error);

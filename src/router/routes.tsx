@@ -49,6 +49,11 @@ const admin = [
 
 const hr = [
   {
+    path: "/main",
+    content: "Dashboard",
+    icon: OwerviewIcon,
+  },
+  {
     path: "/main/empoylees",
     content: "Empoylees",
     icon: bagIcon,
@@ -57,6 +62,11 @@ const hr = [
     path: "/main/users",
     content: "Users",
     icon: usersGroupIcon,
+  },
+  {
+    path: "/main/settings",
+    content: "Settings",
+    icon: SettingsIcon,
   },
 ];
 

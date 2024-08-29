@@ -5,5 +5,5 @@ export const auth: Request = {
   signup: (data) => request.post("/register", data),
   forgot_password: (email) => request.post("/forgot-password", email),
   reset_password: (data) => request.post("/reset-password", data),
-  get_all_users: (params: any) => request.get(`/users`, params),
+  get_all_users: (params) => request.get(`/users`, { params }),
 };
