@@ -8,7 +8,7 @@ const useAuthStore = create<AuthStore>((set) => ({
   data: [],
   isLoading: false,
   totalCount: 1,
-
+	
   signin: async (data: Signin) => {
     set({ isLoading: true });
     try {
@@ -70,19 +70,12 @@ const useAuthStore = create<AuthStore>((set) => ({
       set({ isLoading: false });
     }
   },
-
   get_all_users: async (params: GetAllUsers) => {
     set({ isLoading: true });
     try {
       const response: any = await auth.get_all_users(params);
-      if (response.status === 200) {
-        set({
-          data: response.data.users,
-          totalCount: Math.ceil(response.data.users.lenght / params.limit),
-        });
-      }
       console.log(response);
-      return response.status;
+      // return response;
     } catch (error) {
       console.error("reset_password error:", error);
     } finally {

@@ -1,3 +1,8 @@
+const sidebar2 = () => {
+  return <div>sidebar2</div>;
+};
+export default sidebar2;
+
 // "use client";
 
 // import { Drawer, Sidebar } from "flowbite-react";

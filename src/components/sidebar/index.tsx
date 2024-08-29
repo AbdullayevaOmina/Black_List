@@ -1,7 +1,7 @@
 import router from "@routes";
 import { Link, useLocation } from "react-router-dom";
 import { DarkModeButton } from "@dark-mode";
-import { SettingsIcon } from "@drawer-icons";
+
 
 export default function Sidebar() {
   const location = useLocation();
@@ -15,7 +15,7 @@ export default function Sidebar() {
       >
         <div className="overflow-y-auto py-5 px-3 h-full bg-white dark:bg-gray-800">
           <ul className="space-y-2">
-            {router.map((item, index) => (
+            {router.map((item: any, index: any) => (
               <li key={index}>
                 <Link
                   to={item.path}
@@ -30,21 +30,6 @@ export default function Sidebar() {
                 </Link>
               </li>
             ))}
-          </ul>
-          <ul className="pt-5 mt-5 space-y-2 border-t border-gray-200 dark:border-gray-700">
-            <li>
-              <Link
-                to="/main/settings"
-                className={`flex items-center p-2 text-base font-medium text-gray-900 rounded-lg transition duration-75 hover:bg-gray-100 dark:hover:bg-gray-700 dark:text-white group ${
-                  location.pathname === "/main/settings"
-                    ? "bg-gray-200 dark:bg-gray-700"
-                    : ""
-                }`}
-              >
-                {SettingsIcon}
-                <span className="ml-3">Setting</span>
-              </Link>
-            </li>
           </ul>
           <DarkModeButton />
         </div>

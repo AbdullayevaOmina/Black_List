@@ -16,13 +16,22 @@ export interface ResetPassword {
   reset_token: string | number;
 }
 
+export interface GetAllUsers {
+  username: string | undefined | null;
+  full_name: string | undefined | null;
+  limit: number;
+  offset: number;
+}
+
 export interface AuthStore {
   data: any[];
   isLoading: boolean;
+  totalCount: number;
   signin: (data: Signin) => Promise<any>;
   signup: (data: Signup) => Promise<any>;
   forgot_password: (email: string) => Promise<any>;
   reset_password: (data: ResetPassword) => Promise<any>;
+  get_all_users: (params: GetAllUsers) => Promise<any>;
 }
 
 export interface Request {
@@ -30,4 +39,5 @@ export interface Request {
   signup: (data: Signup) => unknown;
   forgot_password: (email: string) => unknown;
   reset_password: (data: ResetPassword) => unknown;
+  get_all_users: (params: GetAllUsers) => unknown;
 }
