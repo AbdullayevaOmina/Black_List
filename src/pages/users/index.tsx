@@ -1,31 +1,30 @@
-// import { useEffect } from "react";
+import { useEffect } from "react";
 import { GlobalSearch } from "@ui";
 import { AddEmpoyleeModal } from "@modals";
 import { Table } from "flowbite-react";
-// import { useAuthStore } from "@store";
-// import { GetAllUsers } from "@auth-interface";
+import { useAuthStore } from "@store";
+import { GetAllUsers } from "@auth-interface";
 
 const TableHeader = [
   { key: "Fullname", value: "Full Name" },
   { key: "Username", value: "User Name" },
   { key: "Email", value: "Email" },
   { key: "DateOfBirth", value: "Date Of Birth" },
-  { key: "Role", value: "Role" },
 ];
 
 const UsersPage = () => {
-  // const { get_all_users, data } = useAuthStore();
+  const { get_all_users, data } = useAuthStore();
 
-  // const params: GetAllUsers = {
-  //   username: "",
-  //   full_name: "",
-  //   limit: 10,
-  //   offset: 1,
-  // };
+  const params: GetAllUsers = {
+    username: "",
+    full_name: "",
+    limit: 10,
+    offset: 1,
+  };
 
-  // useEffect(() => {
-  // const resData = get_all_users(params);
-  // }, []);
+  useEffect(() => {
+    const resData = get_all_users(params);
+  }, []);
 
   return (
     <div className="p-4 md:pl-[275px] w-full h-[110vh] pt-[70px]">
