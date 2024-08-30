@@ -20,7 +20,7 @@ export const eyeSlashIcon = (
 
 export const eyeIcon = (
   <svg
-    className="w-5 h-5 text-gray-500 dark:text-gray-400"
+    className="w-5 h-5 mr-2 cursor-pointer text-blue-600"
     aria-hidden="true"
     xmlns="http://www.w3.org/2000/svg"
     width="24"
@@ -43,7 +43,7 @@ export const eyeIcon = (
 
 export const banIcon = (
   <svg
-    className="w-5 h-5 text-red-600"
+    className="w-4 h-4 mr-2 text-orange-500"
     aria-hidden="true"
     xmlns="http://www.w3.org/2000/svg"
     width="24"
@@ -348,7 +348,7 @@ export const cartIcon = (
 export const editIcon = (
   <svg
     xmlns="http://www.w3.org/2000/svg"
-    className="h-4 w-4 mr-2 -ml-0.5 hover:text-yellow-300"
+    className="h-4 w-4 mr-3 text-yellow-300"
     viewBox="0 0 20 20"
     fill="currentColor"
     aria-hidden="true"
@@ -365,7 +365,7 @@ export const editIcon = (
 export const deleteIcon = (
   <svg
     xmlns="http://www.w3.org/2000/svg"
-    className="h-4 w-4 mr-2 -ml-0.5"
+    className="h-4 w-4 text-red-600 cursor-pointer"
     viewBox="0 0 20 20"
     fill="currentColor"
     aria-hidden="true"

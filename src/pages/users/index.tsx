@@ -2,9 +2,9 @@ import { useEffect, useState } from "react";
 import { useAuthStore } from "@store";
 import { GetAllUsers } from "@auth-interface";
 import { GlobalPagination, GlobalSearch, TableSkeleton } from "@ui";
-import { AddEmpoyleeModal } from "@modals";
-import { Dropdown, Table } from "flowbite-react";
-import { adjustmentIcon, banIcon } from "@global-icons";
+import { AddEmpoyleeModal, DeleteReqModal } from "@modals";
+import { Table, Tooltip } from "flowbite-react";
+import { banIcon, eyeIcon } from "@global-icons";
 import { useLocation } from "react-router-dom";
 
 const TableHeader = [
@@ -21,7 +21,7 @@ const UsersPage = () => {
   const [params, setParams] = useState<GetAllUsers>({
     username: search,
     full_name: search,
-    limit: 10,
+    limit: 10, // Limit set to 10 for pagination
     offset: 1,
   });
 
@@ -41,7 +41,7 @@ const UsersPage = () => {
 
   useEffect(() => {
     get_all_users(params);
-  }, [params, search]);
+  }, [params]);
 
   const changePage = (value: number) => {
     setParams((prevParams) => ({
@@ -50,9 +50,21 @@ const UsersPage = () => {
     }));
   };
 
+  const handleDeleteUser = async (userId: string) => {
+    // Call your delete user function here
+    try {
+      // await deleteUser(userId);
+      console.log(`User with ID ${userId} deleted.`);
+      // Optionally refetch users or update the state after deletion
+      get_all_users(params); // Re-fetch users after deletion
+    } catch (error) {
+      console.error("Delete user error:", error);
+    }
+  };
+
   return (
     <div className="p-4 md:pl-[275px] w-full h-[110vh] pt-[70px]">
-      <div className="overflow-x-auto w-full">
+      <div>
         <div className="w-full flex flex-col md:flex-row gap-3 justify-between p-3 px-4 bg-white dark:bg-gray-800 rounded-t-lg">
           <GlobalSearch />
           <AddEmpoyleeModal />
@@ -65,7 +77,7 @@ const UsersPage = () => {
               ))}
               <Table.HeadCell>Action</Table.HeadCell>
             </Table.Head>
-            <Table.Body className="divide-y divide-gray-300 dark:divide-gray-600 text-black dark:text-white">
+            <Table.Body className="divide-y w-full divide-gray-300 dark:divide-gray-600 text-black dark:text-white">
               {!isLoading ? (
                 data?.map((row) => (
                   <Table.Row
@@ -80,18 +92,32 @@ const UsersPage = () => {
                       </Table.Cell>
                     ))}
                     <Table.Cell className="flex gap-3">
-                      <Dropdown
+                      {/* <Dropdown
                         arrowIcon={false}
                         color="transparent"
                         label={adjustmentIcon}
                       >
+                        <Dropdown.Item>
+                          {eyeIcon} Look
+                        </Dropdown.Item>
                         <Dropdown.Item>{banIcon} Block</Dropdown.Item>
-                      </Dropdown>
+                        <Dropdown.Item></Dropdown.Item>
+                      </Dropdown> */}
+                      <Tooltip content="Look">
+                        <button>{eyeIcon}</button>
+                      </Tooltip>
+                      <Tooltip content="Block">
+                        <button>{banIcon}</button>
+                      </Tooltip>
+                      <DeleteReqModal
+                        onDelete={() => handleDeleteUser(row.id)}
+                        title="user"
+                      />
                     </Table.Cell>
                   </Table.Row>
                 ))
               ) : (
-                <TableSkeleton />
+                <TableSkeleton count={params.limit} />
               )}
             </Table.Body>
           </Table>

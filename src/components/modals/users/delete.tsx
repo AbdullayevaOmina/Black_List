@@ -1,10 +1,10 @@
 "use client";
 import { deleteIcon } from "@global-icons";
-import { Button, Modal, Tooltip } from "flowbite-react";
+import { Button, Modal } from "flowbite-react";
 import { useState } from "react";
 import { HiOutlineExclamationCircle } from "react-icons/hi";
 
-export function DeleteReqModal({
+export function DeleteUserModal({
   onDelete,
   title,
 }: {
@@ -21,15 +21,14 @@ export function DeleteReqModal({
 
   return (
     <>
-      <Tooltip content="Delete">
-        <button onClick={() => setOpenModal(true)}>{deleteIcon}</button>
-      </Tooltip>
+      <button onClick={() => setOpenModal(true)} className="flex">
+        {deleteIcon} Delete
+      </button>
       <Modal
         show={openModal}
         size="md"
         onClose={() => setOpenModal(false)}
         popup
-        dismissible={true}
       >
         <Modal.Header />
         <Modal.Body>

@@ -1,5 +1,5 @@
-import Ask from "./ask";
+import { DeleteReqModal } from "./ask/index";
 import { AddEmpoyleeModal } from "./empoylee/addEmpoyle";
 import { ForgotPasswordModal } from "./forgotpassword/index";
 
-export { Ask, AddEmpoyleeModal, ForgotPasswordModal };
+export { AddEmpoyleeModal, ForgotPasswordModal, DeleteReqModal };
