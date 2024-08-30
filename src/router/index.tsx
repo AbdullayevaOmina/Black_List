@@ -40,15 +40,17 @@ const index = () => {
         <Route path="signup" element={<SignUp />} />
         <Route path="/main/*" element={<MainLayout />}> */}
           <Route index element={<Home />} />
-          <Route path="employees" element={<Employees />} />
           <Route path="users" element={<UsersPage />} />
           <Route path={`users/user:${user_id}`} element={<UserPage />} />
 
           <Route path="hr" element={<HRPage />} />
+
+          <Route path="employees" element={<Employees />} />
           <Route
             path={`employees/employee:${emp_id}`}
             element={<EmployeePage />}
           />
+          
           <Route path="settings" element={<Settings />} />
           <Route path="*" element={<NotFound />} />
         </Route>

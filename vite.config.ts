@@ -36,7 +36,7 @@ export default defineConfig({
       {
         find: "@emp-intf",
         replacement: "/src/interfaces/emp-intf.ts",
-      }
+      },
 
       // ------------------- icons -------------------
       {

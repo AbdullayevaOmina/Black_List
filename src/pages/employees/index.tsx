@@ -95,8 +95,8 @@ const UsersPage = () => {
                         <Tooltip content="Look">
                           <button
                             onClick={() => {
-                              setDataToCookie("user_id", row.Id);
-                              navigate(`users/user:${row.Id}`);
+                              setDataToCookie("emp_id", row.id);
+                              navigate(`employee:${row.id}`);
                               window.location.reload();
                             }}
                           >
@@ -104,7 +104,7 @@ const UsersPage = () => {
                           </button>
                         </Tooltip>
                         <AskModal
-                          onDelete={() => handleDeleteUser(row.Id)}
+                          onDelete={() => handleDeleteUser(row.id)}
                           title="Are you sure you want to change this user's role to HR?"
                           tooltip="Change role to HR"
                           icon={changeRoleIcon}
