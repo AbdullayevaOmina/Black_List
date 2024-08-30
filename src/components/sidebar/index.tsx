@@ -2,9 +2,9 @@ import router from "@routes";
 import { Link, useLocation } from "react-router-dom";
 import { DarkModeButton } from "@dark-mode";
 
-
 export default function Sidebar() {
   const location = useLocation();
+   const path = location.pathname.replace("/main/", "");
 
   return (
     <>
@@ -15,21 +15,26 @@ export default function Sidebar() {
       >
         <div className="overflow-y-auto py-5 px-3 h-full bg-white dark:bg-gray-800">
           <ul className="space-y-2">
-            {router.map((item: any, index: any) => (
-              <li key={index}>
-                <Link
-                  to={item.path}
-                  className={`flex items-center p-2 w-full text-base font-medium text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 ${
-                    location.pathname === item.path
-                      ? "bg-gray-200 dark:bg-gray-700 "
-                      : ""
-                  }`}
-                >
-                  {item.icon}
-                  <span className="ml-3">{item.content}</span>
-                </Link>
-              </li>
-            ))}
+            {router.map(
+              (
+                item: { path: string; icon: JSX.Element; content: string },
+                index: number
+              ) => (
+                <li key={index}>
+                  <Link
+                    to={item.path}
+                    className={`flex items-center p-2 w-full text-base font-medium text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 ${
+                      path.includes(item.path.replace("/main/", ""))
+                        ? "bg-gray-200 dark:bg-gray-700 "
+                        : ""
+                    }`}
+                  >
+                    {item.icon}
+                    <span className="ml-3">{item.content}</span>
+                  </Link>
+                </li>
+              )
+            )}
           </ul>
           <DarkModeButton />
         </div>

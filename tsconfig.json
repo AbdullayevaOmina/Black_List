@@ -40,10 +40,8 @@
       // --------------------- interface -----------------------
       "@global-interface": ["./src/interfaces/global.ts"],
       "@auth-interface": ["./src/interfaces/auth/register.ts"],
-      "@category-interface": ["./src/interfaces/category.ts"],
-      "@brands-interface": ["./src/interfaces/brands.ts"],
-      "@products-interface": ["./src/interfaces/products.ts"],
-      "@product-detail-interface": ["./src/interfaces/product-detail.ts"],
+      "@users-intf": ["./src/interfaces/users-intf.ts"],
+      "@emp-intf": ["./src/interfaces/emp-intf.ts"],
 
       // --------------------------------------------------------
       "@validations": ["./src/validations"],

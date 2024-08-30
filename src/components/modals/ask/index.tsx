@@ -18,10 +18,10 @@ export function AskModal({
 }) {
   const [openModal, setOpenModal] = useState(false);
 
-  const handleDelete = async (e: React.MouseEvent) => {
-    e.preventDefault();
+  const handleDelete = async () => {
     const res: any = await onDelete();
-    if (res === true) setOpenModal(false);
+    // if (res === true) setOpenModal(false);
+
   };
 
   return (

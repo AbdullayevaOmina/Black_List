@@ -54,8 +54,8 @@ const hr = [
     icon: OwerviewIcon,
   },
   {
-    path: "/main/empoylees",
-    content: "Empoylees",
+    path: "/main/employees",
+    content: "Employees",
     icon: bagIcon,
   },
   {

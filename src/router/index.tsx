@@ -50,7 +50,7 @@ const index = () => {
             element={<EmployeePage />}
           />
           <Route path="settings" element={<Settings />} />
-          {/* <Route path="*" element={<NotFound />} /> */}
+          <Route path="*" element={<NotFound />} />
         </Route>
         <Route path="*" element={<NotFound />} />
       </Route>

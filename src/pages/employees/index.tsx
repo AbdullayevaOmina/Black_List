@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { useAuthStore } from "@store";
-import { GetAllUsers } from "@auth-interface";
+import { useEmpStore } from "@store";
+import { GetAllEployees } from "@emp-intf";
 import { GlobalPagination, GlobalSearch, TableSkeleton } from "@ui";
 import { AddEmployeeModal, AskModal } from "@modals";
 import { Table, Tooltip } from "flowbite-react";
@@ -10,20 +10,19 @@ import { setDataToCookie } from "@cookie";
 
 const TableHeader = [
   { key: "FullName", value: "Full Name" },
-  { key: "Username", value: "User Name" },
   { key: "Email", value: "Email" },
   { key: "DateOfBirth", value: "Date Of Birth" },
+  { key: "position", value: "Position" },
 ];
 
 const UsersPage = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const { get_all_users, data, isLoading, totalCount } = useAuthStore();
+  const { empdata, isLoading, totalCount, get_all_emp } = useEmpStore();
   const [search, setSearch] = useState("");
-  const [params, setParams] = useState<GetAllUsers>({
-    username: search,
-    full_name: search,
-    limit: 1,
+  const [params, setParams] = useState<GetAllEployees>({
+    position: search,
+    limit: 10,
     offset: 1,
   });
 
@@ -36,13 +35,12 @@ const UsersPage = () => {
     setParams((prevParams) => ({
       ...prevParams,
       offset: pageNumber,
-      full_name: searchu,
-      username: searchu,
+      position: searchu,
     }));
   }, [location.search]);
 
   useEffect(() => {
-    get_all_users(params);
+    get_all_emp(params);
   }, [params]);
 
   const changePage = (value: number) => {
@@ -56,7 +54,6 @@ const UsersPage = () => {
     try {
       // await deleteUser(userId);
       console.log(`User with ID ${userId} deleted.`);
-
       // get_all_users(params);
       return true;
     } catch (error) {
@@ -65,7 +62,7 @@ const UsersPage = () => {
   };
 
   return (
-    <div className="p-4 md:pl-[275px] w-full h-[110vh] pt-[70px]">
+    <div className="p-4 md:pl-[275px] pt-[70px]">
       <div>
         <div className="w-full flex flex-col md:flex-row gap-3 justify-between p-3 px-4 bg-white dark:bg-gray-800 rounded-t-lg">
           <GlobalSearch />
@@ -81,8 +78,8 @@ const UsersPage = () => {
             </Table.Head>
             <Table.Body className="divide-y w-full divide-gray-300 dark:divide-gray-600 text-black dark:text-white">
               {!isLoading ? (
-                data?.length > 0 ? (
-                  data?.map((row) => (
+                empdata?.length > 0 ? (
+                  empdata?.map((row) => (
                     <Table.Row
                       key={row.id}
                       className="bg-white dark:border-gray-700 dark:bg-gray-800"

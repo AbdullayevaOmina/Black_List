@@ -30,18 +30,13 @@ export default defineConfig({
         replacement: "/src/interfaces/auth/register.ts",
       },
       {
-        find: "@category-interface",
-        replacement: "/src/interfaces/category.ts",
-      },
-      { find: "@brands-interface", replacement: "/src/interfaces/brands.ts" },
-      {
-        find: "@products-interface",
-        replacement: "/src/interfaces/products.ts",
+        find: "@users-intf",
+        replacement: "/src/interfaces/users-intf.ts",
       },
       {
-        find: "@product-detail-interface",
-        replacement: "/src/interfaces/product-detail.ts",
-      },
+        find: "@emp-intf",
+        replacement: "/src/interfaces/emp-intf.ts",
+      }
 
       // ------------------- icons -------------------
       {
