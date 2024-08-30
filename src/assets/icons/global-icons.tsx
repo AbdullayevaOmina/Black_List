@@ -20,7 +20,7 @@ export const eyeSlashIcon = (
 
 export const eyeIcon = (
   <svg
-    className="w-5 h-5 mr-2 cursor-pointer text-blue-600"
+    className="w-5 h-5 2xl:w-6 2xl:h-6 mr-2 cursor-pointer text-blue-600"
     aria-hidden="true"
     xmlns="http://www.w3.org/2000/svg"
     width="24"
@@ -41,9 +41,29 @@ export const eyeIcon = (
   </svg>
 );
 
+export const changeRoleIcon = (
+  <svg
+    className="w-4 h-4 2xl:w-5 2xl:h-5  text-gray-800 dark:text-white"
+    aria-hidden="true"
+    xmlns="http://www.w3.org/2000/svg"
+    width="24"
+    height="24"
+    fill="none"
+    viewBox="0 0 24 24"
+  >
+    <path
+      stroke="currentColor"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth="2"
+      d="M15 4h3a1 1 0 0 1 1 1v15a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1h3m0 3h6m-6 7 2 2 4-4m-5-9v4h4V3h-4Z"
+    />
+  </svg>
+);
+
 export const banIcon = (
   <svg
-    className="w-4 h-4 mr-2 text-orange-500"
+    className="w-4 h-4 2xl:w-5 2xl:h-5 mr-2 text-orange-500"
     aria-hidden="true"
     xmlns="http://www.w3.org/2000/svg"
     width="24"
@@ -195,7 +215,7 @@ export const searchIconMD = (
 );
 export const searchIconSM = (
   <svg
-    className="w-4 h-4 text-gray-500 dark:text-gray-400"
+    className="w-4 h-4 xl:w-5 xl:h-5 text-gray-500 dark:text-gray-400"
     aria-hidden="true"
     fill="currentColor"
     viewBox="0 0 20 20"
@@ -365,7 +385,7 @@ export const editIcon = (
 export const deleteIcon = (
   <svg
     xmlns="http://www.w3.org/2000/svg"
-    className="h-4 w-4 text-red-600 cursor-pointer"
+    className="w-4 h-4 2xl:w-5 2xl:h-5 mr-2 text-red-600 cursor-pointer"
     viewBox="0 0 20 20"
     fill="currentColor"
     aria-hidden="true"

@@ -2,9 +2,9 @@ import { useEffect, useState } from "react";
 import { useAuthStore } from "@store";
 import { GetAllUsers } from "@auth-interface";
 import { GlobalPagination, GlobalSearch, TableSkeleton } from "@ui";
-import { AddEmpoyleeModal, DeleteReqModal } from "@modals";
+import { AddEmpoyleeModal, AskModal } from "@modals";
 import { Table, Tooltip } from "flowbite-react";
-import { banIcon, eyeIcon } from "@global-icons";
+import { banIcon, changeRoleIcon, deleteIcon, eyeIcon } from "@global-icons";
 import { useLocation } from "react-router-dom";
 
 const TableHeader = [
@@ -21,7 +21,7 @@ const UsersPage = () => {
   const [params, setParams] = useState<GetAllUsers>({
     username: search,
     full_name: search,
-    limit: 10, // Limit set to 10 for pagination
+    limit: 10,
     offset: 1,
   });
 
@@ -51,12 +51,12 @@ const UsersPage = () => {
   };
 
   const handleDeleteUser = async (userId: string) => {
-    // Call your delete user function here
     try {
       // await deleteUser(userId);
       console.log(`User with ID ${userId} deleted.`);
-      // Optionally refetch users or update the state after deletion
-      get_all_users(params); // Re-fetch users after deletion
+
+      // get_all_users(params);
+      return true;
     } catch (error) {
       console.error("Delete user error:", error);
     }
@@ -79,43 +79,55 @@ const UsersPage = () => {
             </Table.Head>
             <Table.Body className="divide-y w-full divide-gray-300 dark:divide-gray-600 text-black dark:text-white">
               {!isLoading ? (
-                data?.map((row) => (
-                  <Table.Row
-                    key={row.id}
-                    className="bg-white dark:border-gray-700 dark:bg-gray-800"
-                  >
-                    {TableHeader.map((header) => (
-                      <Table.Cell key={header.key}>
-                        {header.key === "DateOfBirth"
-                          ? `${row[header.key].substring(0, 10)}`
-                          : row[header.key]}
+                data?.length > 0 ? (
+                  data?.map((row) => (
+                    <Table.Row
+                      key={row.id}
+                      className="bg-white dark:border-gray-700 dark:bg-gray-800"
+                    >
+                      {TableHeader.map((header) => (
+                        <Table.Cell key={header.key}>
+                          {header.key === "DateOfBirth"
+                            ? `${row[header.key].substring(0, 10)}`
+                            : row[header.key]}
+                        </Table.Cell>
+                      ))}
+                      <Table.Cell className="flex gap-3">
+                        <Tooltip content="Look">
+                          <button>{eyeIcon}</button>
+                        </Tooltip>
+                        <AskModal
+                          onDelete={() => handleDeleteUser(row.id)}
+                          title="Are you sure you want to block this user?"
+                          tooltip="Block"
+                          icon={banIcon}
+                        />
+                        <AskModal
+                          onDelete={() => handleDeleteUser(row.id)}
+                          title="Are you sure you want to delete this user?"
+                          tooltip="Delete"
+                          icon={deleteIcon}
+                        />
+                        <AskModal
+                          onDelete={() => handleDeleteUser(row.id)}
+                          title="Are you sure you want to change this user's role to HR?"
+                          tooltip="Change role to HR"
+                          icon={changeRoleIcon}
+                          btncolor="blue"
+                        />
                       </Table.Cell>
-                    ))}
-                    <Table.Cell className="flex gap-3">
-                      {/* <Dropdown
-                        arrowIcon={false}
-                        color="transparent"
-                        label={adjustmentIcon}
-                      >
-                        <Dropdown.Item>
-                          {eyeIcon} Look
-                        </Dropdown.Item>
-                        <Dropdown.Item>{banIcon} Block</Dropdown.Item>
-                        <Dropdown.Item></Dropdown.Item>
-                      </Dropdown> */}
-                      <Tooltip content="Look">
-                        <button>{eyeIcon}</button>
-                      </Tooltip>
-                      <Tooltip content="Block">
-                        <button>{banIcon}</button>
-                      </Tooltip>
-                      <DeleteReqModal
-                        onDelete={() => handleDeleteUser(row.id)}
-                        title="user"
-                      />
+                    </Table.Row>
+                  ))
+                ) : (
+                  <Table.Row>
+                    <Table.Cell
+                      colSpan={TableHeader.length + 1}
+                      className="text-center"
+                    >
+                      No data available
                     </Table.Cell>
                   </Table.Row>
-                ))
+                )
               ) : (
                 <TableSkeleton count={params.limit} />
               )}
