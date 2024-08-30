@@ -4,7 +4,7 @@ import { ErrorMessage, Field, Form, Formik } from "formik";
 import { useState, useEffect } from "react";
 import { schemaProduct } from "@validations";
 
-export function AddEmpoyleeModal() {
+export function AddEmployeeModal() {
   const [openModal, setOpenModal] = useState(false);
 
   function onCloseModal() {

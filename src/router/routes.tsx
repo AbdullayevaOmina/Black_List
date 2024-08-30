@@ -17,14 +17,14 @@ const superadmin = [
     icon: OwerviewIcon,
   },
   {
-    path: "/main/empoylees",
-    content: "Empoylees",
-    icon: bagIcon,
-  },
-  {
     path: "/main/users",
     content: "Users",
     icon: usersGroupIcon,
+  },
+  {
+    path: "/main/employees",
+    content: "Employees",
+    icon: bagIcon,
   },
   {
     path: "/main/hr",

@@ -1,9 +1,19 @@
 import Home from "./home";
-import Empoylees from "./empoylees/index";
-import UsersPage from "./users/index";
+import NotFound from "./notfound";
+import Employees from "./employees/index";
+import EmployeePage from "./employees/employeePage";
 import HRPage from "./hr/index";
 import Settings from "./settings/index";
-import EmpoyleePage from "./empoylees/empoyleePage";
-import NotFound from "./notfound";
+import UsersPage from "./users/index";
+import UserPage from "./users/user";
 
-export { Home, NotFound, Empoylees, EmpoyleePage, Settings, UsersPage, HRPage };
+export {
+  Home,
+  NotFound,
+  Employees,
+  EmployeePage,
+  Settings,
+  UsersPage,
+  UserPage,
+  HRPage,
+};

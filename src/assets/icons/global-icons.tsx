@@ -43,7 +43,7 @@ export const eyeIcon = (
 
 export const changeRoleIcon = (
   <svg
-    className="w-4 h-4 2xl:w-5 2xl:h-5  text-gray-800 dark:text-white"
+    className="w-4 h-4 2xl:w-5 2xl:h-5 mr-2 text-gray-800 dark:text-white"
     aria-hidden="true"
     xmlns="http://www.w3.org/2000/svg"
     width="24"
@@ -56,14 +56,14 @@ export const changeRoleIcon = (
       strokeLinecap="round"
       strokeLinejoin="round"
       strokeWidth="2"
-      d="M15 4h3a1 1 0 0 1 1 1v15a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1h3m0 3h6m-6 7 2 2 4-4m-5-9v4h4V3h-4Z"
+      d="m16 10 3-3m0 0-3-3m3 3H5v3m3 4-3 3m0 0 3 3m-3-3h14v-3"
     />
   </svg>
 );
 
 export const banIcon = (
   <svg
-    className="w-4 h-4 2xl:w-5 2xl:h-5 mr-2 text-orange-500"
+    className="w-4 h-4 2xl:w-5 2xl:h-5 mr-2 text-orange-400"
     aria-hidden="true"
     xmlns="http://www.w3.org/2000/svg"
     width="24"

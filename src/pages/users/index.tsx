@@ -2,10 +2,11 @@ import { useEffect, useState } from "react";
 import { useAuthStore } from "@store";
 import { GetAllUsers } from "@auth-interface";
 import { GlobalPagination, GlobalSearch, TableSkeleton } from "@ui";
-import { AddEmpoyleeModal, AskModal } from "@modals";
+import { AddEmployeeModal, AskModal } from "@modals";
 import { Table, Tooltip } from "flowbite-react";
 import { banIcon, changeRoleIcon, deleteIcon, eyeIcon } from "@global-icons";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import { setDataToCookie } from "@cookie";
 
 const TableHeader = [
   { key: "FullName", value: "Full Name" },
@@ -15,8 +16,9 @@ const TableHeader = [
 ];
 
 const UsersPage = () => {
-  const { get_all_users, data, isLoading, totalCount } = useAuthStore();
   const location = useLocation();
+  const navigate = useNavigate();
+  const { get_all_users, data, isLoading, totalCount } = useAuthStore();
   const [search, setSearch] = useState("");
   const [params, setParams] = useState<GetAllUsers>({
     username: search,
@@ -67,7 +69,7 @@ const UsersPage = () => {
       <div>
         <div className="w-full flex flex-col md:flex-row gap-3 justify-between p-3 px-4 bg-white dark:bg-gray-800 rounded-t-lg">
           <GlobalSearch />
-          <AddEmpoyleeModal />
+          <AddEmployeeModal />
         </div>
         <div className="relative overflow-x-auto">
           <Table className="bg-white dark:bg-gray-800 dark:border-gray-700 w-full rounded-b-lg">
@@ -94,8 +96,23 @@ const UsersPage = () => {
                       ))}
                       <Table.Cell className="flex gap-3">
                         <Tooltip content="Look">
-                          <button>{eyeIcon}</button>
+                          <button
+                            onClick={() => {
+                              setDataToCookie("user_id", row.Id);
+                              navigate(`user:${row.Id}`);
+                              window.location.reload();
+                            }}
+                          >
+                            {eyeIcon}
+                          </button>
                         </Tooltip>
+                        <AskModal
+                          onDelete={() => handleDeleteUser(row.Id)}
+                          title="Are you sure you want to change this user's role to HR?"
+                          tooltip="Change role to HR"
+                          icon={changeRoleIcon}
+                          btncolor="blue"
+                        />
                         <AskModal
                           onDelete={() => handleDeleteUser(row.id)}
                           title="Are you sure you want to block this user?"
@@ -107,13 +124,6 @@ const UsersPage = () => {
                           title="Are you sure you want to delete this user?"
                           tooltip="Delete"
                           icon={deleteIcon}
-                        />
-                        <AskModal
-                          onDelete={() => handleDeleteUser(row.id)}
-                          title="Are you sure you want to change this user's role to HR?"
-                          tooltip="Change role to HR"
-                          icon={changeRoleIcon}
-                          btncolor="blue"
                         />
                       </Table.Cell>
                     </Table.Row>

@@ -7,12 +7,13 @@ import {
 import App from "../App";
 import {
   Home,
-  Empoylees,
-  EmpoyleePage,
+  Employees,
+  EmployeePage,
   NotFound,
   Settings,
   UsersPage,
   HRPage,
+  UserPage,
 } from "@pages";
 import { MainLayout, SignIn, SignUp } from "@layout";
 import { getDataFromCookie } from "@cookie";
@@ -20,7 +21,8 @@ import { getDataFromCookie } from "@cookie";
 import { ProtectedRoute, RequireAuth } from "./protected-routes/index";
 
 const index = () => {
-  const id = getDataFromCookie("parent_category_id");
+  const emp_id = getDataFromCookie("emp_id");
+  const user_id = getDataFromCookie("user_id");
 
   const router = createBrowserRouter(
     createRoutesFromElements(
@@ -34,16 +36,21 @@ const index = () => {
           path="/main/*"
           element={<RequireAuth element={<MainLayout />} />}
         >
-        {/* <Route index element={<SignIn />} />
+          {/* <Route index element={<SignIn />} />
         <Route path="signup" element={<SignUp />} />
         <Route path="/main/*" element={<MainLayout />}> */}
           <Route index element={<Home />} />
-          <Route path="empoylees" element={<Empoylees />} />
+          <Route path="employees" element={<Employees />} />
           <Route path="users" element={<UsersPage />} />
+          <Route path={`users/user:${user_id}`} element={<UserPage />} />
+
           <Route path="hr" element={<HRPage />} />
-          <Route path={`empoylees/empyle:${id}`} element={<EmpoyleePage />} />
+          <Route
+            path={`employees/employee:${emp_id}`}
+            element={<EmployeePage />}
+          />
           <Route path="settings" element={<Settings />} />
-          <Route path="*" element={<NotFound />} />
+          {/* <Route path="*" element={<NotFound />} /> */}
         </Route>
         <Route path="*" element={<NotFound />} />
       </Route>
