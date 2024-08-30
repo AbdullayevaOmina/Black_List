@@ -7,7 +7,7 @@ import { Signin } from "@auth-interface";
 import { Button, Card, Spinner, TextInput } from "flowbite-react";
 import { DarkModeButton } from "@dark-mode";
 import { ErrorMessage, Field, Form, Formik } from "formik";
-import { eyeIcon, eyeSlashIcon } from "@global-icons";
+import { eyeIcon2, eyeSlashIcon } from "@global-icons";
 import { ForgotPasswordModal } from "@modals";
 
 export default function SignIn() {
@@ -82,7 +82,7 @@ export default function SignIn() {
                     onClick={togglePasswordVisibility}
                     className="absolute right-3 top-3 flex items-center text-gray-600"
                   >
-                    {showPassword ? eyeSlashIcon : eyeIcon}
+                    {showPassword ? eyeSlashIcon : eyeIcon2}
                   </button>
                 </div>
 
