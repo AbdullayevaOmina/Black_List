@@ -6,7 +6,7 @@ import { DarkModeButton } from "@dark-mode";
 import { schemaSignup } from "@validations";
 import { Signup } from "@auth-interface";
 import { ErrorMessage, Field, Form, Formik } from "formik";
-import { eyeIcon, eyeSlashIcon } from "@global-icons";
+import { eyeIcon2, eyeSlashIcon } from "@global-icons";
 import { useAuthStore } from "@store";
 
 export default function Signin() {
@@ -141,7 +141,7 @@ export default function Signin() {
                   onClick={togglePasswordVisibility}
                   className="absolute right-3 top-3 flex items-center text-gray-600"
                 >
-                  {showPassword ? eyeSlashIcon : eyeIcon}
+                  {showPassword ? eyeSlashIcon : eyeIcon2}
                 </button>
               </div>
 

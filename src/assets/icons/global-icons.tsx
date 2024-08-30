@@ -44,7 +44,7 @@ export const eyeIcon2 = (
 
 export const eyeIcon = (
   <svg
-    className="w-5 h-5 2xl:w-6 2xl:h-6 mr-2 cursor-pointer text-blue"
+    className="w-5 h-5 2xl:w-6 2xl:h-6 mr-2 cursor-pointer text-blue-500"
     aria-hidden="true"
     xmlns="http://www.w3.org/2000/svg"
     width="24"
