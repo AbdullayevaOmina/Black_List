@@ -21,7 +21,7 @@ export function AskModal({
   const handleDelete = async () => {
     const res: any = await onDelete();
     // if (res === true) setOpenModal(false);
-
+    console.log(res);
   };
 
   return (
