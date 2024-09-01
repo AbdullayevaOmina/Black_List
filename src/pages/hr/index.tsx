@@ -1,48 +1,41 @@
 import { useEffect, useState } from "react";
-import { useAuthStore } from "@store";
-import { GetAllUsers } from "@auth-interface";
-import { GlobalPagination, GlobalSearch, TableSkeleton } from "@ui";
-import { AskModal } from "@modals";
+import { useHRstore } from "@store";
+import { GetAllHR } from "@hr-intf";
+import { GlobalPagination, TableSkeleton } from "@ui";
+import { DeleteHRModal } from "@modals";
 import { Table, Tooltip } from "flowbite-react";
-import { banIcon, changeRoleIcon, deleteIcon, eyeIcon } from "@global-icons";
-import { useLocation, useNavigate } from "react-router-dom";
+import { eyeIcon } from "@global-icons";
+import { useNavigate } from "react-router-dom";
 import { setDataToCookie } from "@cookie";
 
 const TableHeader = [
   { key: "FullName", value: "Full Name" },
-  { key: "Username", value: "User Name" },
   { key: "Email", value: "Email" },
   { key: "DateOfBirth", value: "Date Of Birth" },
+  { key: "created_at", value: "Created at" },
 ];
 
-const UsersPage = () => {
-  const location = useLocation();
+const HRsPage = () => {
+  // const location = useLocation();
   const navigate = useNavigate();
-  const { get_all_users, data, isLoading, totalCount } = useAuthStore();
-  const [search, setSearch] = useState("");
-  const [params, setParams] = useState<GetAllUsers>({
-    username: search,
-    full_name: search,
-    limit: 1,
+  const { get_all_hr, hrdata, isLoading, totalCount } = useHRstore();
+  const [params, setParams] = useState<GetAllHR>({
+    limit: 10,
     offset: 1,
   });
 
-  useEffect(() => {
-    const params = new URLSearchParams(location.search);
-    const page = params.get("offset");
-    const pageNumber = page ? parseInt(page) : 1;
-    const searchu = params.get("search") || "";
-    setSearch(searchu);
-    setParams((prevParams) => ({
-      ...prevParams,
-      offset: pageNumber,
-      full_name: searchu,
-      username: searchu,
-    }));
-  }, [location.search]);
+  // useEffect(() => {
+  //   const params = new URLSearchParams(location.search);
+  //   const page = params.get("offset");
+  //   const pageNumber = page ? parseInt(page) : 1;
+  //   setParams((prevParams) => ({
+  //     ...prevParams,
+  //     offset: pageNumber,
+  //   }));
+  // }, [location.search]);
 
   useEffect(() => {
-    get_all_users(params);
+    get_all_hr(params);
   }, [params]);
 
   const changePage = (value: number) => {
@@ -52,26 +45,14 @@ const UsersPage = () => {
     }));
   };
 
-  const handleDeleteUser = async (userId: string) => {
-    try {
-      // await deleteUser(userId);
-      console.log(`User with ID ${userId} deleted.`);
-
-      // get_all_users(params);
-      return true;
-    } catch (error) {
-      console.error("Delete user error:", error);
-    }
-  };
-
   return (
     <div className="p-4 md:pl-[275px] w-full h-[110vh] pt-[70px]">
-      <div>
-        <div className="w-full flex flex-col md:flex-row gap-3 justify-between p-3 px-4 bg-white dark:bg-gray-800 rounded-t-lg">
+      <div className=" rounded-lg">
+        {/* <div className="w-full flex flex-col md:flex-row gap-3 justify-between p-3 px-4 bg-white dark:bg-gray-800 rounded-t-lg">
           <GlobalSearch />
-        </div>
+        </div> */}
         <div className="relative overflow-x-auto">
-          <Table className="bg-white dark:bg-gray-800 dark:border-gray-700 w-full rounded-b-lg">
+          <Table className="bg-white dark:bg-gray-800 dark:border-gray-700 w-full rounded-lg">
             <Table.Head>
               {TableHeader.map((item) => (
                 <Table.HeadCell key={item.key}>{item.value}</Table.HeadCell>
@@ -80,15 +61,16 @@ const UsersPage = () => {
             </Table.Head>
             <Table.Body className="divide-y w-full divide-gray-300 dark:divide-gray-600 text-black dark:text-white">
               {!isLoading ? (
-                data?.length > 0 ? (
-                  data?.map((row) => (
+                hrdata?.length > 0 ? (
+                  hrdata?.map((row) => (
                     <Table.Row
                       key={row.id}
                       className="bg-white dark:border-gray-700 dark:bg-gray-800"
                     >
                       {TableHeader.map((header) => (
                         <Table.Cell key={header.key}>
-                          {header.key === "DateOfBirth"
+                          {header.key === "DateOfBirth" ||
+                          header.key === "created_at"
                             ? `${row[header.key].substring(0, 10)}`
                             : row[header.key]}
                         </Table.Cell>
@@ -97,33 +79,15 @@ const UsersPage = () => {
                         <Tooltip content="Look">
                           <button
                             onClick={() => {
-                              setDataToCookie("user_id", row.Id);
-                              navigate(`users/user:${row.Id}`);
+                              setDataToCookie("hr_id", row.id);
+                              navigate(`id:${row.id}`);
                               window.location.reload();
                             }}
                           >
                             {eyeIcon}
                           </button>
                         </Tooltip>
-                        <AskModal
-                          onDelete={() => handleDeleteUser(row.Id)}
-                          title="Are you sure you want to change this user's role to HR?"
-                          tooltip="Change role to HR"
-                          icon={changeRoleIcon}
-                          btncolor="blue"
-                        />
-                        <AskModal
-                          onDelete={() => handleDeleteUser(row.id)}
-                          title="Are you sure you want to block this user?"
-                          tooltip="Block"
-                          icon={banIcon}
-                        />
-                        <AskModal
-                          onDelete={() => handleDeleteUser(row.id)}
-                          title="Are you sure you want to delete this user?"
-                          tooltip="Delete"
-                          icon={deleteIcon}
-                        />
+                        <DeleteHRModal id={row.id} />
                       </Table.Cell>
                     </Table.Row>
                   ))
@@ -133,7 +97,7 @@ const UsersPage = () => {
                       colSpan={TableHeader.length + 1}
                       className="text-center"
                     >
-                      No data available
+                      No hrdata available
                     </Table.Cell>
                   </Table.Row>
                 )
@@ -155,4 +119,4 @@ const UsersPage = () => {
   );
 };
 
-export default UsersPage;
+export default HRsPage;

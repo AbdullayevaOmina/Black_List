@@ -8,6 +8,8 @@ import { ChangeRTHRModal } from "./users/changeRoleToHR";
 import { DeleteEmpModal } from "./empoylee/delete";
 import { EmpoyleeBlockModal } from "./empoylee/block";
 
+import { DeleteHRModal } from "./hr/delete";
+
 export {
   ForgotPasswordModal,
   AskModal,
@@ -20,4 +22,7 @@ export {
   DeleteUserModal,
   ChangeRTEModal,
   ChangeRTHRModal,
+
+  // hr
+  DeleteHRModal,
 };

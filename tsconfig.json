@@ -42,6 +42,7 @@
       "@auth-interface": ["./src/interfaces/auth/register.ts"],
       "@users-intf": ["./src/interfaces/users-intf.ts"],
       "@emp-intf": ["./src/interfaces/emp-intf.ts"],
+      "@hr-intf": ["./src/interfaces/hr-intf.ts"],
 
       // --------------------------------------------------------
       "@validations": ["./src/validations"],

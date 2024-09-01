@@ -19,7 +19,7 @@ const useAuthStore = create<AuthStore>((set) => ({
         setDataToCookie("role", response.data.role);
         window.location.reload();
       } else if (response.status === 400) {
-        toast.warning("Wrong email or password!");
+        toast.warning("Email or password is wrong");
       } else if (response.status === 404) {
         toast.info("You are not registered yet. Please sign up");
       } else if (response.status === 500) {

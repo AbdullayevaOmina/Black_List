@@ -14,6 +14,7 @@ import {
   UsersPage,
   HRPage,
   UserPage,
+  HRsPage,
 } from "@pages";
 import { MainLayout, SignIn, SignUp } from "@layout";
 import { getDataFromCookie } from "@cookie";
@@ -23,6 +24,7 @@ import { ProtectedRoute, RequireAuth } from "./protected-routes/index";
 const index = () => {
   const emp_id = getDataFromCookie("emp_id");
   const user_id = getDataFromCookie("user_id");
+  const hr_id = getDataFromCookie("hr_id");
 
   const router = createBrowserRouter(
     createRoutesFromElements(
@@ -43,14 +45,15 @@ const index = () => {
           <Route path="users" element={<UsersPage />} />
           <Route path={`users/user:${user_id}`} element={<UserPage />} />
 
-          <Route path="hr" element={<HRPage />} />
+          <Route path="hr" element={<HRsPage />} />
+          <Route path={`hr/id:${hr_id}`} element={<HRPage />} />
 
           <Route path="employees" element={<Employees />} />
           <Route
             path={`employees/employee:${emp_id}`}
             element={<EmployeePage />}
           />
-          
+
           <Route path="settings" element={<Settings />} />
           <Route path="*" element={<NotFound />} />
         </Route>

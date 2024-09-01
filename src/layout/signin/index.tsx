@@ -9,6 +9,7 @@ import { DarkModeButton } from "@dark-mode";
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import { eyeIcon2, eyeSlashIcon } from "@global-icons";
 import { ForgotPasswordModal } from "@modals";
+import { toast } from "react-toastify";
 
 export default function SignIn() {
   const { signin } = useAuthStore();
@@ -28,10 +29,9 @@ export default function SignIn() {
   const handleSubmit = async (values: Signin) => {
     const status = await signin(values);
     if (status === 200) {
-      // toast.success("welcome");
       navigate("/main");
-    } else if (status === 404) {
-      navigate("/signup");
+    } else if (status === 400) {
+      toast.warning("Email or password is wrong");
     }
   };
 
