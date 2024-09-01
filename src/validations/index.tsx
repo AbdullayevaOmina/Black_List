@@ -40,3 +40,7 @@ export const schemaSignup = Yup.object().shape({
 export const schemaEmployee = Yup.object().shape({
   position: Yup.string().required("Position required"),
 });
+
+export const schemaEmployeeBlock = Yup.object().shape({
+  reason: Yup.string().required("Reason required"),
+});

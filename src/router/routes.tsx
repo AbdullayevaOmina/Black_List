@@ -53,14 +53,14 @@ const hr = [
     icon: OwerviewIcon,
   },
   {
-    path: "/main/employees",
-    content: "Employees",
-    icon: bagIcon,
-  },
-  {
     path: "/main/users",
     content: "Users",
     icon: usersGroupIcon,
+  },
+  {
+    path: "/main/employees",
+    content: "Employees",
+    icon: bagIcon,
   },
   {
     path: "/main/settings",

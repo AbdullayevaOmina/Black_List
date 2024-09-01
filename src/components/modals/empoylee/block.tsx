@@ -1,41 +1,85 @@
 "use client";
-import { banIcon } from "@global-icons";
-import { Button, Modal, Tooltip } from "flowbite-react";
+import { Button, Modal, Spinner, TextInput, Tooltip } from "flowbite-react";
+import { ErrorMessage, Field, Form, Formik } from "formik";
 import { useState } from "react";
-import { HiOutlineExclamationCircle } from "react-icons/hi";
+import { schemaEmployeeBlock } from "@validations";
+import { banIcon } from "@global-icons";
+import { useEmpStore } from "@store";
+import { toast } from "react-toastify";
 
-export function EmpoyleeBlockModal(id: string | any) {
+export function EmpoyleeBlockModal(id: any) {
   const [openModal, setOpenModal] = useState(false);
-  const handleBlock = async () => {};
-  console.log(id);
+  const { block_emp } = useEmpStore();
+
+  function onCloseModal() {
+    setOpenModal(false);
+  }
+
+  const handleSubmit = async (value: any) => {
+    const data = { ...value, employee_id: id.id };
+    console.log(data);
+    const resStatus = await block_emp(data);
+    if (resStatus === 200) {
+      setOpenModal(false);
+      toast.success("Blocked.");
+    } else {
+      toast.error("Failed block.");
+    }
+  };
 
   return (
     <>
-      <Tooltip content={"Block"}>
+      <Tooltip content="Block">
         <button onClick={() => setOpenModal(true)}>{banIcon}</button>
       </Tooltip>
       <Modal
+        dismissible
         show={openModal}
         size="md"
-        onClose={() => setOpenModal(false)}
+        onClose={onCloseModal}
         popup
-        dismissible={true}
       >
         <Modal.Header />
         <Modal.Body>
-          <div className="text-center">
-            <HiOutlineExclamationCircle className="mx-auto mb-4 h-14 w-14 text-gray-400 dark:text-gray-200" />
-            <h3 className="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
-              Are you sure you want to block this empoyle?
+          <div className="space-y-6">
+            <h3 className="text-xl font-medium text-gray-900 dark:text-white text-center">
+              Add this Employee to the blacklist
             </h3>
-            <div className="flex justify-center gap-4">
-              <Button color="failure" onClick={handleBlock}>
-                {"Yes, I'm sure"}
-              </Button>
-              <Button color="gray" onClick={() => setOpenModal(false)}>
-                No, cancel
-              </Button>
-            </div>
+            <Formik
+              initialValues={{ reason: "" }}
+              validationSchema={schemaEmployeeBlock}
+              onSubmit={handleSubmit}
+            >
+              {({ isSubmitting }) => (
+                <Form className="grid gap-2">
+                  <Field name="reason">
+                    {({ field }: any) => (
+                      <TextInput
+                        {...field}
+                        placeholder="Reason"
+                        helperText={
+                          <ErrorMessage
+                            name="reason"
+                            component="b"
+                            className="text-[red] text-[11px]"
+                          />
+                        }
+                      />
+                    )}
+                  </Field>
+
+                  <Button type="submit" disabled={isSubmitting}>
+                    {isSubmitting ? (
+                      <>
+                        <Spinner aria-label="Submitting" size="md" /> Adding...
+                      </>
+                    ) : (
+                      "Add"
+                    )}
+                  </Button>
+                </Form>
+              )}
+            </Formik>
           </div>
         </Modal.Body>
       </Modal>
