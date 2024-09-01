@@ -7,6 +7,7 @@ import { HiOutlineExclamationCircle } from "react-icons/hi";
 export function EmpoyleeBlockModal(id: string | any) {
   const [openModal, setOpenModal] = useState(false);
   const handleBlock = async () => {};
+  console.log(id);
 
   return (
     <>
