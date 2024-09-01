@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useAuthStore } from "@store";
 import { GetAllUsers } from "@auth-interface";
 import { GlobalPagination, GlobalSearch, TableSkeleton } from "@ui";
-import { AddEmployeeModal, AskModal } from "@modals";
+import { AskModal } from "@modals";
 import { Table, Tooltip } from "flowbite-react";
 import { banIcon, changeRoleIcon, deleteIcon, eyeIcon } from "@global-icons";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -69,7 +69,6 @@ const UsersPage = () => {
       <div>
         <div className="w-full flex flex-col md:flex-row gap-3 justify-between p-3 px-4 bg-white dark:bg-gray-800 rounded-t-lg">
           <GlobalSearch />
-          <AddEmployeeModal />
         </div>
         <div className="relative overflow-x-auto">
           <Table className="bg-white dark:bg-gray-800 dark:border-gray-700 w-full rounded-b-lg">

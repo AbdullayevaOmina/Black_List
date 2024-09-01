@@ -13,5 +13,4 @@ const useDarkMoodStore = create<DarkMoodStore>((set) => ({
     return Promise.resolve();
   },
 }));
-
 export default useDarkMoodStore;

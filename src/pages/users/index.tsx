@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useUsersStore } from "@store";
 import { GetAllUsers } from "@users-intf";
 import { GlobalPagination, GlobalSearch, TableSkeleton } from "@ui";
-import { AddEmployeeModal, AskModal, DeleteUserModal } from "@modals";
+import { ChangeRTEModal, AskModal } from "@modals";
 import { Table, Tooltip } from "flowbite-react";
 import { changeRoleIcon, eyeIcon } from "@global-icons";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -18,13 +18,13 @@ const TableHeader = [
 const UsersPage = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const { get_all_users, usersdata, isLoading, totalCount, change_role } =
+  const { get_all_users, usersdata, isLoading, totalCount, change_role_to_hr } =
     useUsersStore();
   const [search, setSearch] = useState("");
   const [params, setParams] = useState<GetAllUsers>({
     username: search,
     full_name: search,
-    limit: 1,
+    limit: 10,
     offset: 1,
   });
 
@@ -56,7 +56,7 @@ const UsersPage = () => {
   const handleChangeRoleUser = async (userId: string) => {
     console.log(userId);
     try {
-      const res = await change_role(userId);
+      const res = await change_role_to_hr(userId);
       console.log(res);
       return res === 200;
     } catch (error) {
@@ -68,7 +68,6 @@ const UsersPage = () => {
     <div className="p-4 md:pl-[275px] pt-[70px]">
       <div className="w-full flex flex-col md:flex-row gap-3 justify-between p-3 px-4 bg-white dark:bg-gray-800 rounded-t-lg">
         <GlobalSearch />
-        <AddEmployeeModal />
       </div>
       <div className="relative overflow-x-auto">
         <Table className="bg-white dark:bg-gray-800 dark:border-gray-700 w-full rounded-b-lg">
@@ -83,7 +82,7 @@ const UsersPage = () => {
               usersdata?.length > 0 ? (
                 usersdata?.map((row) => (
                   <Table.Row
-                    key={row.id}
+                    key={row.Id}
                     className="bg-white dark:border-gray-700 dark:bg-gray-800"
                   >
                     {TableHeader.map((header) => (
@@ -112,7 +111,7 @@ const UsersPage = () => {
                         icon={changeRoleIcon}
                         btncolor="blue"
                       />
-                      <DeleteUserModal id={row.Id} />
+                      <ChangeRTEModal id={row.Id} />
                     </Table.Cell>
                   </Table.Row>
                 ))

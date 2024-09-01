@@ -8,7 +8,6 @@ import {
 import { getDataFromCookie } from "@cookie";
 
 const role = getDataFromCookie("role");
-console.log(role);
 
 const superadmin = [
   {

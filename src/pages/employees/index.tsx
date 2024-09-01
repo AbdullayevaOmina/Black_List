@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import { useEmpStore } from "@store";
-import { GetAllEployees } from "@emp-intf";
+import { GetAllEmployees } from "@emp-intf";
 import { GlobalPagination, GlobalSearch, TableSkeleton } from "@ui";
-import { AddEmployeeModal, AskModal } from "@modals";
+import { DeleteEmpModal, EmpoyleeBlockModal } from "@modals";
 import { Table, Tooltip } from "flowbite-react";
-import { banIcon, changeRoleIcon, deleteIcon, eyeIcon } from "@global-icons";
+import { eyeIcon } from "@global-icons";
 import { useLocation, useNavigate } from "react-router-dom";
 import { setDataToCookie } from "@cookie";
 
@@ -20,7 +20,7 @@ const UsersPage = () => {
   const navigate = useNavigate();
   const { empdata, isLoading, totalCount, get_all_emp } = useEmpStore();
   const [search, setSearch] = useState("");
-  const [params, setParams] = useState<GetAllEployees>({
+  const [params, setParams] = useState<GetAllEmployees>({
     position: search,
     limit: 10,
     offset: 1,
@@ -50,23 +50,11 @@ const UsersPage = () => {
     }));
   };
 
-  const handleDeleteUser = async (userId: string) => {
-    try {
-      // await deleteUser(userId);
-      console.log(`User with ID ${userId} deleted.`);
-      // get_all_users(params);
-      return true;
-    } catch (error) {
-      console.error("Delete user error:", error);
-    }
-  };
-
   return (
     <div className="p-4 md:pl-[275px] pt-[70px]">
       <div>
         <div className="w-full flex flex-col md:flex-row gap-3 justify-between p-3 px-4 bg-white dark:bg-gray-800 rounded-t-lg">
           <GlobalSearch />
-          <AddEmployeeModal />
         </div>
         <div className="relative overflow-x-auto">
           <Table className="bg-white dark:bg-gray-800 dark:border-gray-700 w-full rounded-b-lg">
@@ -103,25 +91,8 @@ const UsersPage = () => {
                             {eyeIcon}
                           </button>
                         </Tooltip>
-                        <AskModal
-                          onDelete={() => handleDeleteUser(row.id)}
-                          title="Are you sure you want to change this user's role to HR?"
-                          tooltip="Change role to HR"
-                          icon={changeRoleIcon}
-                          btncolor="blue"
-                        />
-                        <AskModal
-                          onDelete={() => handleDeleteUser(row.id)}
-                          title="Are you sure you want to block this user?"
-                          tooltip="Block"
-                          icon={banIcon}
-                        />
-                        <AskModal
-                          onDelete={() => handleDeleteUser(row.id)}
-                          title="Are you sure you want to delete this user?"
-                          tooltip="Delete"
-                          icon={deleteIcon}
-                        />
+                        <EmpoyleeBlockModal id={row.id} />
+                        <DeleteEmpModal id={row.id} />
                       </Table.Cell>
                     </Table.Row>
                   ))

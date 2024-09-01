@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { GetAllUsers, UsersStore } from "@users-intf";
+import { GetAllUsers, UsersStore, ChangeRoleToEmp } from "@users-intf";
 import { users_service } from "@service";
 
 const useUsersStore = create<UsersStore>((set) => ({
@@ -17,36 +17,51 @@ const useUsersStore = create<UsersStore>((set) => ({
           totalCount: Math.ceil(response.data.count / params.limit),
         });
       }
-      console.log(response.data);
       return response.status;
     } catch (error) {
-      console.error("getall users error:", error);
+      console.error("get_all_users error:", error);
     } finally {
       set({ isLoading: false });
     }
   },
 
-  delete_user: async (id) => {
+  delete_user: async (id: string) => {
     set({ isLoading: true });
     try {
       const response: any = await users_service.delete_user(id);
-      console.log(response);
-      // return response;
+      return response.status;
     } catch (error) {
-      console.error("deleteuser error:", error);
+      console.error("delete_user error:", error);
     } finally {
       set({ isLoading: false });
     }
   },
 
-  change_role: async (id) => {
+  change_role_to_hr: async (id: string) => {
     set({ isLoading: true });
     try {
-      const response: any = await users_service.change_role(id);
-      console.log(response);
-      // return response;
+      const response: any = await users_service.change_role_to_hr(id);
+      return response.status;
     } catch (error) {
-      console.error("deleteuser error:", error);
+      console.error("change_role_to_hr error:", error);
+    } finally {
+      set({ isLoading: false });
+    }
+  },
+
+  change_role_to_emp: async (data: ChangeRoleToEmp) => {
+    set({ isLoading: true });
+
+    try {
+      const response: any = await users_service.change_role_to_emp(data);
+      if (response.status === 200) {
+        set((state) => ({
+          usersdata: state.usersdata.filter((user) => user.Id !== data.user_id),
+        }));
+      }
+      return response.status;
+    } catch (error) {
+      console.error("change_role_to_emp error:", error);
     } finally {
       set({ isLoading: false });
     }
