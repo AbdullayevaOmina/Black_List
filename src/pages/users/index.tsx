@@ -2,11 +2,11 @@ import { useEffect, useState } from "react";
 import { useUsersStore } from "@store";
 import { GetAllUsers } from "@users-intf";
 import { GlobalPagination, GlobalSearch, TableSkeleton } from "@ui";
-import { ChangeRTEModal, AskModal } from "@modals";
+import { ChangeRTEModal, ChangeRTHRModal } from "@modals";
 import { Table, Tooltip } from "flowbite-react";
-import { changeRoleIcon, eyeIcon } from "@global-icons";
+import { eyeIcon } from "@global-icons";
 import { useLocation, useNavigate } from "react-router-dom";
-import { setDataToCookie } from "@cookie";
+import { getDataFromCookie, setDataToCookie } from "@cookie";
 
 const TableHeader = [
   { key: "FullName", value: "Full Name" },
@@ -18,9 +18,9 @@ const TableHeader = [
 const UsersPage = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const { get_all_users, usersdata, isLoading, totalCount, change_role_to_hr } =
-    useUsersStore();
+  const { get_all_users, usersdata, isLoading, totalCount } = useUsersStore();
   const [search, setSearch] = useState("");
+  const [role, setRole] = useState("");
   const [params, setParams] = useState<GetAllUsers>({
     username: search,
     full_name: search,
@@ -44,6 +44,8 @@ const UsersPage = () => {
 
   useEffect(() => {
     get_all_users(params);
+    const r: any = getDataFromCookie("role");
+    setRole(r);
   }, [params]);
 
   const changePage = (value: number) => {
@@ -51,17 +53,6 @@ const UsersPage = () => {
       ...prevParams,
       offset: value,
     }));
-  };
-
-  const handleChangeRoleUser = async (userId: string) => {
-    console.log(userId);
-    try {
-      const res = await change_role_to_hr(userId);
-      console.log(res);
-      return res === 200;
-    } catch (error) {
-      console.error("Change role user error:", error);
-    }
   };
 
   return (
@@ -104,13 +95,9 @@ const UsersPage = () => {
                           {eyeIcon}
                         </button>
                       </Tooltip>
-                      <AskModal
-                        onDelete={() => handleChangeRoleUser(row.Id)}
-                        title="Are you sure you want to change this user's role to HR?"
-                        tooltip="Change role to HR"
-                        icon={changeRoleIcon}
-                        btncolor="blue"
-                      />
+                      {(role === "superadmin" || role === "admin") && (
+                        <ChangeRTHRModal id={row.Id} />
+                      )}
                       <ChangeRTEModal id={row.Id} />
                     </Table.Cell>
                   </Table.Row>

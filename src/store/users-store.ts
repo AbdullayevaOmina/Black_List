@@ -41,6 +41,11 @@ const useUsersStore = create<UsersStore>((set) => ({
     set({ isLoading: true });
     try {
       const response: any = await users_service.change_role_to_hr(id);
+      if (response.status === 200) {
+        set((state) => ({
+          usersdata: state.usersdata.filter((user) => user.Id !== id),
+        }));
+      }
       return response.status;
     } catch (error) {
       console.error("change_role_to_hr error:", error);

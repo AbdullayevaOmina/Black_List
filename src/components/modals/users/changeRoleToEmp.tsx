@@ -18,12 +18,12 @@ export function ChangeRTEModal(id: any) {
   const handleSubmit = async (value: any) => {
     const data = { ...value, user_id: id.id };
     const resStatus = await change_role_to_emp(data);
-      if (resStatus === 200) {
-        setOpenModal(false);
-        toast.success("Role changed successfully.");
-      } else {
-        toast.error("Failed to change role.");
-      }
+    if (resStatus === 200) {
+      setOpenModal(false);
+      toast.success("Role changed successfully.");
+    } else {
+      toast.error("Failed to change role.");
+    }
   };
 
   return (
