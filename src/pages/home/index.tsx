@@ -8,10 +8,12 @@ export default function Home() {
     get_daily,
     get_weekly,
     get_monthly,
+    get_all,
     isLoading,
     dailydata,
     weeklydata,
     monthlydata,
+    alldata,
   } = useMonitoringStore();
   const params = { offset: 1, limit: 0 };
 
@@ -19,7 +21,16 @@ export default function Home() {
     get_daily(params);
     get_weekly(params);
     get_monthly(params);
+    get_all(params);
   }, []);
+
+  const TableAllHeader = [
+    { key: "FullName", value: "Full Name" },
+    // { key: "DateOfBirth", value: "Date Of Birth" },
+    { key: "position", value: "Position" },
+    { key: "blacklisted_at", value: "Blacklisted at" },
+    { key: "reason", value: "Reason" },
+  ];
 
   const TableHeader = [
     { key: "full_name", value: "Full Name" },
@@ -29,7 +40,48 @@ export default function Home() {
   return (
     <div className="m-4 md:ml-[275px] mt-[60px] rounded-xl">
       <Tabs aria-label="Default tabs" className="custom-tabs">
-        <Tabs.Item active title="Daily">
+        <Tabs.Item active title="All" className="hidden">
+          <Table className="bg-white dark:bg-gray-800 dark:border-gray-700 w-full rounded-lg">
+            <Table.Head>
+              {TableAllHeader.map((item) => (
+                <Table.HeadCell key={item.key}>{item.value}</Table.HeadCell>
+              ))}
+            </Table.Head>
+            <Table.Body className="divide-y w-full divide-gray-300 dark:divide-gray-600 text-black dark:text-white">
+              {!isLoading ? (
+                alldata?.length > 0 ? (
+                  alldata?.map((row) => (
+                    <Table.Row
+                      key={row.Id}
+                      className="bg-white dark:border-gray-700 dark:bg-gray-800"
+                    >
+                      {TableHeader.map((header) => (
+                        <Table.Cell key={header.key}>
+                          {header.key === "blacklisted_at" || "DateOfBirth"
+                            ? `${row[header.key].substring(0, 10)}`
+                            : row[header.key]}
+                        </Table.Cell>
+                      ))}
+                    </Table.Row>
+                  ))
+                ) : (
+                  <Table.Row>
+                    <Table.Cell
+                      colSpan={TableHeader.length + 1}
+                      className="text-center"
+                    >
+                      No alldata available
+                    </Table.Cell>
+                  </Table.Row>
+                )
+              ) : (
+                <TableSkeleton count={3} />
+              )}
+            </Table.Body>
+          </Table>
+        </Tabs.Item>
+        <Tabs.Item title="Daily">
+          Daily
           <Table className="bg-white dark:bg-gray-800 dark:border-gray-700 w-full rounded-lg">
             <Table.Head>
               {TableHeader.map((item) => (

@@ -3,7 +3,7 @@ import { Button, Modal, Spinner, TextInput, Tooltip } from "flowbite-react";
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import { useState } from "react";
 import { schemaEmployeeBlock } from "@validations";
-import { banIcon } from "@global-icons";
+import { blockIcon } from "@global-icons";
 import { useEmpStore } from "@store";
 import { toast } from "react-toastify";
 
@@ -30,7 +30,7 @@ export function EmpoyleeBlockModal(id: any) {
   return (
     <>
       <Tooltip content="Block">
-        <button onClick={() => setOpenModal(true)}>{banIcon}</button>
+        <button onClick={() => setOpenModal(true)}>{blockIcon}</button>
       </Tooltip>
       <Modal
         dismissible

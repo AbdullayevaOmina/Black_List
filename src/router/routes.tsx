@@ -41,7 +41,7 @@ const superadmin = [
 const hr = [
   {
     path: "/main",
-    content: "Dashboard",
+    content: "Overview",
     icon: OwerviewIcon,
   },
   {
@@ -61,9 +61,21 @@ const hr = [
   },
 ];
 
+const emp = [
+  {
+    path: "/main",
+    content: "Overview",
+    icon: OwerviewIcon,
+  },
+  {
+    path: "/main/settings",
+    content: "Settings",
+    icon: SettingsIcon,
+  },
+];
+
 let router: any = null;
 if (role === "superadmin" || role === "admin") router = superadmin;
-// else if (role === "admin") router = admin;
 else if (role === "hr") router = hr;
-else router = [];
+else router = emp;
 export default router;

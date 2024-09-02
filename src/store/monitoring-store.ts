@@ -6,17 +6,19 @@ const useMonitoringStore = create<MonitoringStore>((set) => ({
   dailydata: [],
   weeklydata: [],
   monthlydata: [],
+  alldata: [],
   isLoading: false,
   DtotalCount: 1,
   WtotalCount: 1,
   MtotalCount: 1,
+  AtotalCount: 1,
 
   get_daily: async (params: GetReq) => {
     set({ isLoading: true });
     try {
       const response: any = await monitoring_service.get_daily(params);
       console.log(response);
-      
+
       if (response.status === 200) {
         set({
           dailydata: response.data.reports,
@@ -62,6 +64,24 @@ const useMonitoringStore = create<MonitoringStore>((set) => ({
       return response.status;
     } catch (error) {
       console.error("get_monthly error:", error);
+    } finally {
+      set({ isLoading: false });
+    }
+  },
+
+  get_all: async (params: GetReq) => {
+    set({ isLoading: true });
+    try {
+      const response: any = await monitoring_service.get_all(params);
+      if (response.status === 200) {
+        set({
+          alldata: response.data.reports,
+          AtotalCount: Math.ceil(response.data.count / params.limit),
+        });
+      }
+      return response.status;
+    } catch (error) {
+      console.error("get_all error:", error);
     } finally {
       set({ isLoading: false });
     }

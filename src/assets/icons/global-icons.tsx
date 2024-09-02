@@ -43,7 +43,7 @@ export const eyeIcon2 = (
 
 export const eyeIcon = (
   <svg
-    className="w-5 h-5 2xl:w-6 2xl:h-6 mr-2 cursor-pointer text-blue-500"
+    className="w-5 h-5 2xl:w-6 2xl:h-6 mr-2 mt-[1.5px] cursor-pointer text-blue-500"
     aria-hidden="true"
     xmlns="http://www.w3.org/2000/svg"
     width="24"
@@ -118,6 +118,46 @@ export const banIcon = (
       strokeLinecap="round"
       strokeWidth="2"
       d="m6 6 12 12m3-6a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+    />
+  </svg>
+);
+
+export const blockIcon = (
+  <svg
+    className="w-5 h-5 mr-2 text-lime-500"
+    aria-hidden="true"
+    xmlns="http://www.w3.org/2000/svg"
+    width="24"
+    height="24"
+    fill="none"
+    viewBox="0 0 24 24"
+  >
+    <path
+      stroke="currentColor"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth="2"
+      d="M10 14v3m4-6V7a3 3 0 1 1 6 0v4M5 11h10a1 1 0 0 1 1 1v7a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-7a1 1 0 0 1 1-1Z"
+    />
+  </svg>
+);
+
+export const unBlockIcon = (
+  <svg
+    className="w-5 h-5 mr-2 text-orange-400"
+    aria-hidden="true"
+    xmlns="http://www.w3.org/2000/svg"
+    width="24"
+    height="24"
+    fill="none"
+    viewBox="0 0 24 24"
+  >
+    <path
+      stroke="currentColor"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth="2"
+      d="M12 14v3m-3-6V7a3 3 0 1 1 6 0v4m-8 0h10a1 1 0 0 1 1 1v7a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1v-7a1 1 0 0 1 1-1Z"
     />
   </svg>
 );
@@ -427,7 +467,7 @@ export const editIcon = (
 export const deleteIcon = (
   <svg
     xmlns="http://www.w3.org/2000/svg"
-    className="w-4 h-4 2xl:w-5 2xl:h-5 mr-2 text-red-600 cursor-pointer"
+    className="w-[18px] h-[18px] mt-[1.5px] mr-2 text-red-600 cursor-pointer"
     viewBox="0 0 20 20"
     fill="currentColor"
     aria-hidden="true"

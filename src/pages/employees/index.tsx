@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useEmpStore } from "@store";
 import { GetAllEmployees } from "@emp-intf";
 import { GlobalPagination, GlobalSearch, TableSkeleton } from "@ui";
-import { DeleteEmpModal, EmpoyleeBlockModal } from "@modals";
+import { DeleteEmpModal, EmpoyleeBlockModal, UnblockEmpModal } from "@modals";
 import { Table, Tooltip } from "flowbite-react";
 import { eyeIcon } from "@global-icons";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -22,7 +22,7 @@ const UsersPage = () => {
   const [search, setSearch] = useState("");
   const [params, setParams] = useState<GetAllEmployees>({
     position: search,
-    limit: 10,
+    limit: 100,
     offset: 1,
   });
 
@@ -91,7 +91,12 @@ const UsersPage = () => {
                             {eyeIcon}
                           </button>
                         </Tooltip>
-                        <EmpoyleeBlockModal id={row.id} />
+
+                        {row.is_blocked === "true" ? (
+                          <UnblockEmpModal id={row.id} />
+                        ) : (
+                          <EmpoyleeBlockModal id={row.id} />
+                        )}
                         <DeleteEmpModal id={row.id} />
                       </Table.Cell>
                     </Table.Row>
