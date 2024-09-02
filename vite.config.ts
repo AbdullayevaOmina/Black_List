@@ -41,6 +41,10 @@ export default defineConfig({
         find: "@hr-intf",
         replacement: "/src/interfaces/hr-intf.ts",
       },
+      {
+        find: "@monitoring-intf",
+        replacement: "/src/interfaces/monitoring-intf.ts",
+      },
       // ------------------- icons -------------------
       {
         find: "@global-icons",

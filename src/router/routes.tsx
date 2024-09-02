@@ -12,7 +12,7 @@ const role = getDataFromCookie("role");
 const superadmin = [
   {
     path: "/main",
-    content: "Dashboard",
+    content: "Overview",
     icon: OwerviewIcon,
   },
   {

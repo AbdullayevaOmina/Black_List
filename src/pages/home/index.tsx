@@ -1,28 +1,157 @@
+import { Table, Tabs } from "flowbite-react";
+import { useMonitoringStore } from "@store";
+import { useEffect } from "react";
+import { TableSkeleton } from "@ui";
+
 export default function Home() {
+  const {
+    get_daily,
+    get_weekly,
+    get_monthly,
+    isLoading,
+    dailydata,
+    weeklydata,
+    monthlydata,
+  } = useMonitoringStore();
+  const params = { offset: 1, limit: 0 };
+
+  useEffect(() => {
+    get_daily(params);
+    get_weekly(params);
+    get_monthly(params);
+  }, []);
+
+  const TableHeader = [
+    { key: "full_name", value: "Full Name" },
+    { key: "blacklisted_at", value: "Blacklisted at" },
+  ];
+
   return (
-    <>
-      <main className="p-4 md:pl-[275px] w-ful h-auto pt-20">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
-          <div className="border-2 border-dashed border-gray-400 rounded-lg dark:border-gray-500 h-32 md:h-64"></div>
-          <div className="border-2 border-dashed rounded-lg border-gray-400 dark:border-gray-500 h-32 md:h-64"></div>
-          <div className="border-2 border-dashed rounded-lg border-gray-400 dark:border-gray-500 h-32 md:h-64"></div>
-          <div className="border-2 border-dashed rounded-lg border-gray-400 dark:border-gray-500 h-32 md:h-64"></div>
-        </div>
-        <div className="border-2 border-dashed rounded-lg border-gray-400 dark:border-gray-500 h-96 mb-4"></div>
-        <div className="grid grid-cols-2 gap-4 mb-4">
-          <div className="border-2 border-dashed rounded-lg border-gray-400 dark:border-gray-500 h-48 md:h-72"></div>
-          <div className="border-2 border-dashed rounded-lg border-gray-400 dark:border-gray-500 h-48 md:h-72"></div>
-          <div className="border-2 border-dashed rounded-lg border-gray-400 dark:border-gray-500 h-48 md:h-72"></div>
-          <div className="border-2 border-dashed rounded-lg border-gray-400 dark:border-gray-500 h-48 md:h-72"></div>
-        </div>
-        <div className="border-2 border-dashed rounded-lg border-gray-400 dark:border-gray-500 h-96 mb-4"></div>
-        <div className="grid grid-cols-2 gap-4">
-          <div className="border-2 border-dashed rounded-lg border-gray-400 dark:border-gray-500 h-48 md:h-72"></div>
-          <div className="border-2 border-dashed rounded-lg border-gray-400 dark:border-gray-500 h-48 md:h-72"></div>
-          <div className="border-2 border-dashed rounded-lg border-gray-400 dark:border-gray-500 h-48 md:h-72"></div>
-          <div className="border-2 border-dashed rounded-lg border-gray-400 dark:border-gray-500 h-48 md:h-72"></div>
-        </div>
-      </main>
-    </>
+    <div className="m-4 md:ml-[275px] mt-[60px] rounded-xl">
+      <Tabs aria-label="Default tabs" className="custom-tabs">
+        <Tabs.Item active title="Daily">
+          <Table className="bg-white dark:bg-gray-800 dark:border-gray-700 w-full rounded-lg">
+            <Table.Head>
+              {TableHeader.map((item) => (
+                <Table.HeadCell key={item.key}>{item.value}</Table.HeadCell>
+              ))}
+            </Table.Head>
+            <Table.Body className="divide-y w-full divide-gray-300 dark:divide-gray-600 text-black dark:text-white">
+              {!isLoading ? (
+                dailydata?.length > 0 ? (
+                  dailydata?.map((row) => (
+                    <Table.Row
+                      key={row.Id}
+                      className="bg-white dark:border-gray-700 dark:bg-gray-800"
+                    >
+                      {TableHeader.map((header) => (
+                        <Table.Cell key={header.key}>
+                          {header.key === "blacklisted_at"
+                            ? `${row[header.key].substring(0, 10)}`
+                            : row[header.key]}
+                        </Table.Cell>
+                      ))}
+                    </Table.Row>
+                  ))
+                ) : (
+                  <Table.Row>
+                    <Table.Cell
+                      colSpan={TableHeader.length + 1}
+                      className="text-center"
+                    >
+                      No dailydata available
+                    </Table.Cell>
+                  </Table.Row>
+                )
+              ) : (
+                <TableSkeleton count={3} />
+              )}
+            </Table.Body>
+          </Table>
+        </Tabs.Item>
+        <Tabs.Item title="Weekly">
+          Weekly
+          <Table className="bg-white dark:bg-gray-800 dark:border-gray-700 w-full rounded-lg">
+            <Table.Head>
+              {TableHeader.map((item) => (
+                <Table.HeadCell key={item.key}>{item.value}</Table.HeadCell>
+              ))}
+            </Table.Head>
+            <Table.Body className="divide-y w-full divide-gray-300 dark:divide-gray-600 text-black dark:text-white">
+              {!isLoading ? (
+                weeklydata?.length > 0 ? (
+                  weeklydata?.map((row) => (
+                    <Table.Row
+                      key={row.Id}
+                      className="bg-white dark:border-gray-700 dark:bg-gray-800"
+                    >
+                      {TableHeader.map((header) => (
+                        <Table.Cell key={header.key}>
+                          {header.key === "blacklisted_at"
+                            ? `${row[header.key].substring(0, 10)}`
+                            : row[header.key]}
+                        </Table.Cell>
+                      ))}
+                    </Table.Row>
+                  ))
+                ) : (
+                  <Table.Row>
+                    <Table.Cell
+                      colSpan={TableHeader.length + 1}
+                      className="text-center"
+                    >
+                      No weeklydata available
+                    </Table.Cell>
+                  </Table.Row>
+                )
+              ) : (
+                <TableSkeleton count={3} />
+              )}
+            </Table.Body>
+          </Table>
+        </Tabs.Item>
+        <Tabs.Item title="Monthly">
+          Monthly
+          <Table className="bg-white dark:bg-gray-800 dark:border-gray-700 w-full rounded-lg">
+            <Table.Head>
+              {TableHeader.map((item) => (
+                <Table.HeadCell key={item.key}>{item.value}</Table.HeadCell>
+              ))}
+            </Table.Head>
+            <Table.Body className="divide-y w-full divide-gray-300 dark:divide-gray-600 text-black dark:text-white">
+              {!isLoading ? (
+                monthlydata?.length > 0 ? (
+                  monthlydata?.map((row) => (
+                    <Table.Row
+                      key={row.Id}
+                      className="bg-white dark:border-gray-700 dark:bg-gray-800"
+                    >
+                      {TableHeader.map((header) => (
+                        <Table.Cell key={header.key}>
+                          {header.key === "blacklisted_at"
+                            ? `${row[header.key].substring(0, 10)}`
+                            : row[header.key]}
+                        </Table.Cell>
+                      ))}
+                    </Table.Row>
+                  ))
+                ) : (
+                  <Table.Row>
+                    <Table.Cell
+                      colSpan={TableHeader.length + 1}
+                      className="text-center"
+                    >
+                      No monthlydata available
+                    </Table.Cell>
+                  </Table.Row>
+                )
+              ) : (
+                <TableSkeleton count={3} />
+              )}
+            </Table.Body>
+          </Table>
+        </Tabs.Item>
+      </Tabs>
+    </div>
   );
 }

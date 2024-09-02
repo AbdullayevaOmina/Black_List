@@ -43,6 +43,7 @@
       "@users-intf": ["./src/interfaces/users-intf.ts"],
       "@emp-intf": ["./src/interfaces/emp-intf.ts"],
       "@hr-intf": ["./src/interfaces/hr-intf.ts"],
+      "@monitoring-intf": ["./src/interfaces/monitoring-intf.ts"],
 
       // --------------------------------------------------------
       "@validations": ["./src/validations"],
