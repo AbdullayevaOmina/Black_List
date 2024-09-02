@@ -16,7 +16,7 @@ export default function Home() {
     monthlydata,
     alldata,
   } = useMonitoringStore();
-  const params = { offset: 1, limit: 100 };
+  const params = { offset: 1, limit: 0 };
   const role = getDataFromCookie("role") !== "user" && "employee";
 
   useEffect(() => {
