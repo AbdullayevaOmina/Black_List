@@ -59,7 +59,7 @@ const useEmpStore = create<EmployeesStore>((set) => ({
   unblock_emp: async (employee_id: string) => {
     set({ isLoading: true });
     try {
-      const response: any = await emp_service.delete_emp(employee_id);
+      const response: any = await emp_service.unblock_emp(employee_id);
       if (response.status === 200) {
         set((state: any) => ({
           empdata: state.empdata.filter((emp: any) => emp.id !== employee_id),
