@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useEmpStore } from "@store";
 import { GetAllEmployees } from "@emp-intf";
 import { GlobalPagination, GlobalSearch, TableSkeleton } from "@ui";
-import { DeleteEmpModal, EmpoyleeBlockModal, UnblockEmpModal } from "@modals";
+import { DeleteEmpModal, EmployeeActionModal } from "@modals";
 import { Table, Tooltip } from "flowbite-react";
 import { eyeIcon } from "@global-icons";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -91,12 +91,7 @@ const UsersPage = () => {
                             {eyeIcon}
                           </button>
                         </Tooltip>
-
-                        {row.is_blocked === "true" ? (
-                          <UnblockEmpModal id={row.id} />
-                        ) : (
-                          <EmpoyleeBlockModal id={row.id} />
-                        )}
+                        <EmployeeActionModal id={row.id}  isBlock={row.is_blocked}/>
                         <DeleteEmpModal id={row.id} />
                       </Table.Cell>
                     </Table.Row>

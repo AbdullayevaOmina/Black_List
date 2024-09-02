@@ -1,7 +1,6 @@
 import { create } from "zustand";
 import { GetAllEmployees, EmployeesStore } from "@emp-intf";
 import { emp_service } from "@service";
-
 const useEmpStore = create<EmployeesStore>((set) => ({
   empdata: [],
   isLoading: false,
@@ -24,7 +23,6 @@ const useEmpStore = create<EmployeesStore>((set) => ({
       set({ isLoading: false });
     }
   },
-
   create_emp: async (data) => {
     set({ isLoading: true });
     try {
@@ -41,16 +39,17 @@ const useEmpStore = create<EmployeesStore>((set) => ({
     set({ isLoading: true });
     try {
       const response: any = await emp_service.block_emp(data);
-      // if (response.status === 200) {
-      //   set((state: any) => ({
-      //     empdata: state.empdata.filter(
-      //       (emp: any) => emp.id !== data.employee_id
-      //     ),
-      //   }));
-      // }
+      if (response.status === 200) {
+        // Update empdata state directly
+        set((state: any) => ({
+          empdata: state.empdata.map((emp: any) =>
+            emp.id === data.employee_id ? { ...emp, is_blocked: "true" } : emp
+          ),
+        }));
+      }
       return response.status;
     } catch (error) {
-      console.error("delete_emp error:", error);
+      console.error("block_emp error:", error);
     } finally {
       set({ isLoading: false });
     }
@@ -60,9 +59,17 @@ const useEmpStore = create<EmployeesStore>((set) => ({
     set({ isLoading: true });
     try {
       const response: any = await emp_service.unblock_emp(employee_id);
+      if (response.status === 200) {
+        // Update empdata state directly
+        set((state: any) => ({
+          empdata: state.empdata.map((emp: any) =>
+            emp.id === employee_id ? { ...emp, is_blocked: "false" } : emp
+          ),
+        }));
+      }
       return response.status;
     } catch (error) {
-      console.error("delete_emp error:", error);
+      console.error("unblock_emp error:", error);
     } finally {
       set({ isLoading: false });
     }
