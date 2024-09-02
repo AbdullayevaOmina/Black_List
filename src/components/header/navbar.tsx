@@ -4,7 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import avatar from "../../assets/avatar.png";
 import logo1 from "../../assets/logo-black.png";
 import logo2 from "../../assets/logo-white.png";
-import { Avatar, Dropdown } from "flowbite-react";
+import { Dropdown } from "flowbite-react";
 import { useState, useEffect } from "react";
 
 const Index = () => {
@@ -53,7 +53,7 @@ const Index = () => {
             <Link to="/main" className="hidden md:block ml-2">
               <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">
                 <img
-                  src={isDarkMode ? logo2 : logo1} // Switch between logos based on dark mode
+                  src={isDarkMode ? logo2 : logo1}
                   className="h-7"
                   alt="logo"
                 />
@@ -62,8 +62,8 @@ const Index = () => {
             <div className="w-full flex justify-center md:hidden">
               <Link to="/main">
                 <img
-                  src={isDarkMode ? logo2 : logo1} // Switch between logos based on dark mode
-                  className="h-7"
+                  src={isDarkMode ? logo2 : logo1}
+                  className="h-6 sm:h-7"
                   alt="logo"
                 />
               </Link>
@@ -75,7 +75,7 @@ const Index = () => {
               arrowIcon={false}
               inline
               className="w-[200px]"
-              label={<Avatar alt="User settings" img={avatar} rounded />}
+              label={<img src={avatar} className="w-9" />}
             >
               <Dropdown.Header>
                 <b>{getDataFromCookie("first_name")}</b>

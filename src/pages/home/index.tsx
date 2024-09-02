@@ -2,6 +2,7 @@ import { Table, Tabs } from "flowbite-react";
 import { useMonitoringStore } from "@store";
 import { useEffect } from "react";
 import { TableSkeleton } from "@ui";
+import { getDataFromCookie } from "@cookie";
 
 export default function Home() {
   const {
@@ -16,6 +17,7 @@ export default function Home() {
     alldata,
   } = useMonitoringStore();
   const params = { offset: 1, limit: 100 };
+  const role = getDataFromCookie("role") !== "user" && "employee";
 
   useEffect(() => {
     get_daily(params);
@@ -44,49 +46,53 @@ export default function Home() {
   return (
     <div className="m-4 md:ml-[275px] mt-[60px] rounded-xl">
       <Tabs aria-label="Default tabs" className="custom-tabs">
-        <Tabs.Item active title="All">
-          <Table className="bg-white dark:bg-gray-800 dark:border-gray-700 w-full rounded-lg">
-            <Table.Head>
-              {TableAllHeader.map((item) => (
-                <Table.HeadCell key={item.key}>{item.value}</Table.HeadCell>
-              ))}
-            </Table.Head>
-            <Table.Body className="divide-y w-full divide-gray-300 dark:divide-gray-600 text-black dark:text-white">
-              {!isLoading ? (
-                alldata?.length > 0 ? (
-                  alldata?.map((row) => (
-                    <Table.Row
-                      key={row.Id}
-                      className="bg-white dark:border-gray-700 dark:bg-gray-800"
-                    >
-                      {TableAllHeader.map((header) => (
-                        <Table.Cell key={header.key}>
-                          {header.key === "blacklisted_at" ||
-                          header.key === "DateOfBirth"
-                            ? row[header.key].substring(0, 10)
-                            : header.key === "reason"
-                            ? `${row[header.key].substring(0, 30)}`
-                            : row[header.key]}
-                        </Table.Cell>
-                      ))}
+        {role ? (
+          <Tabs.Item active title="All">
+            <Table className="bg-white dark:bg-gray-800 dark:border-gray-700 w-full rounded-lg">
+              <Table.Head>
+                {TableAllHeader.map((item) => (
+                  <Table.HeadCell key={item.key}>{item.value}</Table.HeadCell>
+                ))}
+              </Table.Head>
+              <Table.Body className="divide-y w-full divide-gray-300 dark:divide-gray-600 text-black dark:text-white">
+                {!isLoading ? (
+                  alldata?.length > 0 ? (
+                    alldata?.map((row) => (
+                      <Table.Row
+                        key={row.Id}
+                        className="bg-white dark:border-gray-700 dark:bg-gray-800"
+                      >
+                        {TableAllHeader.map((header) => (
+                          <Table.Cell key={header.key}>
+                            {header.key === "blacklisted_at" ||
+                            header.key === "DateOfBirth"
+                              ? row[header.key].substring(0, 10)
+                              : header.key === "reason"
+                              ? `${row[header.key].substring(0, 30)}`
+                              : row[header.key]}
+                          </Table.Cell>
+                        ))}
+                      </Table.Row>
+                    ))
+                  ) : (
+                    <Table.Row>
+                      <Table.Cell
+                        colSpan={TableHeader.length + 1}
+                        className="text-center"
+                      >
+                        No alldata available
+                      </Table.Cell>
                     </Table.Row>
-                  ))
+                  )
                 ) : (
-                  <Table.Row>
-                    <Table.Cell
-                      colSpan={TableHeader.length + 1}
-                      className="text-center"
-                    >
-                      No alldata available
-                    </Table.Cell>
-                  </Table.Row>
-                )
-              ) : (
-                <TableSkeleton count={3} />
-              )}
-            </Table.Body>
-          </Table>
-        </Tabs.Item>
+                  <TableSkeleton count={3} />
+                )}
+              </Table.Body>
+            </Table>
+          </Tabs.Item>
+        ) : (
+          ""
+        )}
         <Tabs.Item title="Daily">
           <Table className="bg-white dark:bg-gray-800 dark:border-gray-700 w-full rounded-lg">
             <Table.Head>
