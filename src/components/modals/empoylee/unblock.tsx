@@ -23,7 +23,7 @@ export function UnblockEmpModal(id: string | any) {
 
   return (
     <>
-      <Tooltip content={"Delete"}>
+      <Tooltip content={"Unblock"}>
         <button onClick={() => setOpenModal(true)}>{unBlockIcon}</button>
       </Tooltip>
 

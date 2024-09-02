@@ -22,9 +22,9 @@ const UsersPage = () => {
   const [search, setSearch] = useState("");
   const [params, setParams] = useState<GetAllEmployees>({
     position: search,
-    limit: 100,
+    limit: 10,
     offset: 1,
-  });
+  });  
 
   useEffect(() => {
     const params = new URLSearchParams(location.search);

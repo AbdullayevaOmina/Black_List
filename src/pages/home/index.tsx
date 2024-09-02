@@ -15,7 +15,7 @@ export default function Home() {
     monthlydata,
     alldata,
   } = useMonitoringStore();
-  const params = { offset: 1, limit: 0 };
+  const params = { offset: 1, limit: 100 };
 
   useEffect(() => {
     get_daily(params);
@@ -37,10 +37,14 @@ export default function Home() {
     { key: "blacklisted_at", value: "Blacklisted at" },
   ];
 
+  const formatDate = (dateString: string | undefined) => {
+    return dateString ? dateString.substring(0, 10) : "N/A";
+  };
+
   return (
     <div className="m-4 md:ml-[275px] mt-[60px] rounded-xl">
       <Tabs aria-label="Default tabs" className="custom-tabs">
-        <Tabs.Item active title="All" className="hidden">
+        <Tabs.Item active title="All">
           <Table className="bg-white dark:bg-gray-800 dark:border-gray-700 w-full rounded-lg">
             <Table.Head>
               {TableAllHeader.map((item) => (
@@ -57,8 +61,9 @@ export default function Home() {
                     >
                       {TableHeader.map((header) => (
                         <Table.Cell key={header.key}>
-                          {header.key === "blacklisted_at" || "DateOfBirth"
-                            ? `${row[header.key].substring(0, 10)}`
+                          {header.key === "blacklisted_at" ||
+                          header.key === "DateOfBirth"
+                            ? formatDate(row[header.key])
                             : row[header.key]}
                         </Table.Cell>
                       ))}
@@ -81,7 +86,6 @@ export default function Home() {
           </Table>
         </Tabs.Item>
         <Tabs.Item title="Daily">
-          Daily
           <Table className="bg-white dark:bg-gray-800 dark:border-gray-700 w-full rounded-lg">
             <Table.Head>
               {TableHeader.map((item) => (
@@ -99,7 +103,7 @@ export default function Home() {
                       {TableHeader.map((header) => (
                         <Table.Cell key={header.key}>
                           {header.key === "blacklisted_at"
-                            ? `${row[header.key].substring(0, 10)}`
+                            ? formatDate(row[header.key])
                             : row[header.key]}
                         </Table.Cell>
                       ))}
@@ -122,7 +126,6 @@ export default function Home() {
           </Table>
         </Tabs.Item>
         <Tabs.Item title="Weekly">
-          Weekly
           <Table className="bg-white dark:bg-gray-800 dark:border-gray-700 w-full rounded-lg">
             <Table.Head>
               {TableHeader.map((item) => (
@@ -140,7 +143,7 @@ export default function Home() {
                       {TableHeader.map((header) => (
                         <Table.Cell key={header.key}>
                           {header.key === "blacklisted_at"
-                            ? `${row[header.key].substring(0, 10)}`
+                            ? formatDate(row[header.key])
                             : row[header.key]}
                         </Table.Cell>
                       ))}
@@ -163,7 +166,6 @@ export default function Home() {
           </Table>
         </Tabs.Item>
         <Tabs.Item title="Monthly">
-          Monthly
           <Table className="bg-white dark:bg-gray-800 dark:border-gray-700 w-full rounded-lg">
             <Table.Head>
               {TableHeader.map((item) => (
@@ -181,7 +183,7 @@ export default function Home() {
                       {TableHeader.map((header) => (
                         <Table.Cell key={header.key}>
                           {header.key === "blacklisted_at"
-                            ? `${row[header.key].substring(0, 10)}`
+                            ? formatDate(row[header.key])
                             : row[header.key]}
                         </Table.Cell>
                       ))}

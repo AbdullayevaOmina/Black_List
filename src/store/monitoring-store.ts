@@ -73,9 +73,10 @@ const useMonitoringStore = create<MonitoringStore>((set) => ({
     set({ isLoading: true });
     try {
       const response: any = await monitoring_service.get_all(params);
+      // console.log(response);
       if (response.status === 200) {
         set({
-          alldata: response.data.reports,
+          alldata: response.data.black_lists,
           AtotalCount: Math.ceil(response.data.count / params.limit),
         });
       }
