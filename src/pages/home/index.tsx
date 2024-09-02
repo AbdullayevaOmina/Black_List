@@ -59,11 +59,13 @@ export default function Home() {
                       key={row.Id}
                       className="bg-white dark:border-gray-700 dark:bg-gray-800"
                     >
-                      {TableHeader.map((header) => (
+                      {TableAllHeader.map((header) => (
                         <Table.Cell key={header.key}>
                           {header.key === "blacklisted_at" ||
                           header.key === "DateOfBirth"
-                            ? formatDate(row[header.key])
+                            ? row[header.key].substring(0, 10)
+                            : header.key === "reason"
+                            ? `${row[header.key].substring(0, 30)}`
                             : row[header.key]}
                         </Table.Cell>
                       ))}

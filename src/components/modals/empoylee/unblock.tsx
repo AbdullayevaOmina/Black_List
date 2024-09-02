@@ -1,5 +1,5 @@
 "use client";
-import { unBlockIcon } from "@global-icons";
+import { unBlockIcon, blockIcon } from "@global-icons";
 import { Button, Modal, Tooltip } from "flowbite-react";
 import { useState } from "react";
 import { HiOutlineExclamationCircle } from "react-icons/hi";
@@ -8,11 +8,13 @@ import { toast } from "react-toastify";
 
 export function UnblockEmpModal(id: string | any) {
   const [openModal, setOpenModal] = useState(false);
+  const [icon, setIcon] = useState(false);
   const { unblock_emp } = useEmpStore();
 
   const handleUnBlock = async () => {
     const res = await unblock_emp(id.id);
     if (res === 200) {
+      setIcon(!icon);
       setOpenModal(false);
       toast.info("Unblocked");
     } else {
@@ -24,7 +26,9 @@ export function UnblockEmpModal(id: string | any) {
   return (
     <>
       <Tooltip content={"Unblock"}>
-        <button onClick={() => setOpenModal(true)}>{unBlockIcon}</button>
+        <button onClick={() => setOpenModal(true)}>
+          {icon ? blockIcon : unBlockIcon}
+        </button>
       </Tooltip>
 
       <Modal

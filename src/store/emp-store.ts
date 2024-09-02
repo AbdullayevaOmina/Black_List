@@ -41,13 +41,13 @@ const useEmpStore = create<EmployeesStore>((set) => ({
     set({ isLoading: true });
     try {
       const response: any = await emp_service.block_emp(data);
-      if (response.status === 200) {
-        set((state: any) => ({
-          empdata: state.empdata.filter(
-            (emp: any) => emp.id !== data.employee_id
-          ),
-        }));
-      }
+      // if (response.status === 200) {
+      //   set((state: any) => ({
+      //     empdata: state.empdata.filter(
+      //       (emp: any) => emp.id !== data.employee_id
+      //     ),
+      //   }));
+      // }
       return response.status;
     } catch (error) {
       console.error("delete_emp error:", error);
@@ -60,11 +60,6 @@ const useEmpStore = create<EmployeesStore>((set) => ({
     set({ isLoading: true });
     try {
       const response: any = await emp_service.unblock_emp(employee_id);
-      if (response.status === 200) {
-        set((state: any) => ({
-          empdata: state.empdata.filter((emp: any) => emp.id !== employee_id),
-        }));
-      }
       return response.status;
     } catch (error) {
       console.error("delete_emp error:", error);
