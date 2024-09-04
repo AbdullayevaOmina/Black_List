@@ -10,6 +10,13 @@ export const removeDataFromCookie = (title: string) => {
   Cookies.remove(title);
 };
 
+export const clearAllCookies = () => {
+  const allCookies = Cookies.get(); // Get all cookies
+  Object.keys(allCookies).forEach((cookieName) => {
+    Cookies.remove(cookieName); // Remove each cookie
+  });
+};
+
 export const isAuthenticated = (): boolean => {
   return !!getDataFromCookie("access_token");
 };

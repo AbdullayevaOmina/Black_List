@@ -1,5 +1,5 @@
 import axios from "axios";
-import { getDataFromCookie } from "@cookie";
+import { clearAllCookies, getDataFromCookie } from "@cookie";
 
 const global_request = axios.create({
   baseURL: "https://blacklist.ulgur.uz",
@@ -15,5 +15,18 @@ global_request.interceptors.request.use((config) => {
   }
   return config;
 });
+
+global_request.interceptors.response.use(
+  (response) => {
+    return response;
+  },
+  (error) => {
+    if (error.response && error.response.status === 403) {
+     clearAllCookies();
+      window.location.href = "/";
+    }
+    return Promise.reject(error);
+  }
+);
 
 export default global_request;

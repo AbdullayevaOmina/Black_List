@@ -13,8 +13,19 @@ export interface BlockEpoylee {
   reason: string;
 }
 
+export interface EpoyleeData {
+  DateOfBirth?: string;
+  Email?: string;
+  FullName?: string;
+  hr_id?: string;
+  id?: string;
+  is_blocked?: string;
+  position?: string;
+}
+
 export interface EmployeesStore {
-  empdata: any[];
+  empdata: EpoyleeData[];
+  empsdata: any[];
   isLoading: boolean;
   totalCount: number;
   create_emp: (data: CreateEpoylee) => Promise<any>;
@@ -22,6 +33,7 @@ export interface EmployeesStore {
   unblock_emp: (employee_id: string) => Promise<any>;
   delete_emp: (employee_id: string) => Promise<any>;
   get_all_emp: (params: GetAllEmployees) => Promise<any>;
+  get_emp: (id: any) => Promise<any>;
 }
 
 export interface Request {
@@ -30,4 +42,5 @@ export interface Request {
   block_emp: (data: BlockEpoylee) => unknown;
   unblock_emp: (employee_id: string) => unknown;
   get_all_emp: (params: GetAllEmployees) => unknown;
+  get_emp: (id: any) => unknown;
 }

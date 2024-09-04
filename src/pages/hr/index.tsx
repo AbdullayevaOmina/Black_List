@@ -46,7 +46,7 @@ const HRsPage = () => {
   };
 
   return (
-    <div className="p-4 md:pl-[275px] w-full h-[110vh] pt-[70px]">
+    <div className="p-4 md:pl-[275px] w-full h-[110vh] pt-[62px]">
       <div className=" rounded-lg">
         {/* <div className="w-full flex flex-col md:flex-row gap-3 justify-between p-3 px-4 bg-white dark:bg-gray-800 rounded-t-lg">
           <GlobalSearch />

@@ -18,7 +18,7 @@ const TableHeader = [
 const UsersPage = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const { empdata, isLoading, totalCount, get_all_emp } = useEmpStore();
+  const { empsdata, isLoading, totalCount, get_all_emp } = useEmpStore();
   const [search, setSearch] = useState("");
   const [params, setParams] = useState<GetAllEmployees>({
     position: search,
@@ -51,7 +51,7 @@ const UsersPage = () => {
   };
 
   return (
-    <div className="p-4 md:pl-[275px] pt-[70px]">
+    <div className="p-4 md:pl-[275px] pt-[62px]">
       <div>
         <div className="w-full flex flex-col md:flex-row gap-3 justify-between p-3 px-4 bg-white dark:bg-gray-800 rounded-t-lg">
           <GlobalSearch />
@@ -66,8 +66,8 @@ const UsersPage = () => {
             </Table.Head>
             <Table.Body className="divide-y w-full divide-gray-300 dark:divide-gray-600 text-black dark:text-white">
               {!isLoading ? (
-                empdata?.length > 0 ? (
-                  empdata?.map((row) => (
+                empsdata?.length > 0 ? (
+                  empsdata?.map((row) => (
                     <Table.Row
                       key={row.id}
                       className="bg-white dark:border-gray-700 dark:bg-gray-800"

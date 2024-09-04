@@ -7,4 +7,5 @@ export const emp_service: Request = {
   block_emp: (data) => global_request.post(`/blacklist/add`, data),
   unblock_emp: (id) => global_request.delete(`/blacklist/remove/${id}`),
   get_all_emp: (params) => global_request.get(`/employee/all`, { params }),
+  get_emp: (id) => global_request.get(`/employee/${id}`),
 };
