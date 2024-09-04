@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useEmpStore } from "@store";
 import { getDataFromCookie } from "@cookie";
+import { EmployeeActionModal } from "@modals";
 
 const EmployeePage = () => {
   const { isLoading, get_emp, empdata } = useEmpStore();
@@ -42,6 +43,7 @@ const EmployeePage = () => {
                 </span>
               </p>
             </div>
+            <EmployeeActionModal id={id} isBlock={empdata?.is_blocked} />
           </div>
         )
       )}

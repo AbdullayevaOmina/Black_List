@@ -4,6 +4,7 @@ import { users_service } from "@service";
 
 const useUsersStore = create<UsersStore>((set) => ({
   usersdata: [],
+  userdata: null,
   isLoading: false,
   totalCount: 1,
 
@@ -17,6 +18,25 @@ const useUsersStore = create<UsersStore>((set) => ({
           totalCount: Math.ceil(response.data.count / params.limit),
         });
       }
+      return response.status;
+    } catch (error) {
+      console.error("get_all_users error:", error);
+    } finally {
+      set({ isLoading: false });
+    }
+  },
+
+  get_user: async (id) => {
+    set({ isLoading: true });
+    try {
+      const response: any = await users_service.get_user(id);
+      console.log(response);
+
+      // if (response.status === 200) {
+      //   set({
+      //     userdata: response.data.user,
+      //   });
+      // }
       return response.status;
     } catch (error) {
       console.error("get_all_users error:", error);

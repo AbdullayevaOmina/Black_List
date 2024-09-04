@@ -17,7 +17,7 @@ const useEmpStore = create<EmployeesStore>((set) => ({
           empdata: response.data.employee,
         });
       }
-      return response.status
+      return response.status;
     } catch (error) {
       console.error("get_emp error:", error);
     } finally {
@@ -47,6 +47,18 @@ const useEmpStore = create<EmployeesStore>((set) => ({
     set({ isLoading: true });
     try {
       const response: any = await emp_service.create_emp(data);
+      return response.status;
+    } catch (error) {
+      console.error("create_emp error:", error);
+    } finally {
+      set({ isLoading: false });
+    }
+  },
+
+  update_emp: async (data) => {
+    set({ isLoading: true });
+    try {
+      const response: any = await emp_service.update_emp(data);
       return response.status;
     } catch (error) {
       console.error("create_emp error:", error);

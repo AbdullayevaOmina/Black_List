@@ -9,7 +9,7 @@ import { schemaEmployeeBlock } from "@validations";
 import { toast } from "react-toastify";
 
 interface EmployeeModalProps {
-  id: string;
+  id: any;
   isBlock: string;
 }
 
