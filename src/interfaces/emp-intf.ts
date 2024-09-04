@@ -12,20 +12,19 @@ export interface BlockEpoylee {
   employee_id: string;
   reason: string;
 }
-
-export interface EpoyleeData {
-  DateOfBirth?: string;
-  Email?: string;
-  FullName?: string;
-  hr_id?: string;
-  id?: string;
-  is_blocked?: string;
-  position?: string;
+interface EmployeeData {
+  id: string;
+  FullName: string;
+  DateOfBirth: string;
+  Email: string;
+  position: string;
+  is_blocked: string;
+  hr_id: string;
 }
 
 export interface EmployeesStore {
-  empdata: EpoyleeData[];
-  empsdata: any[];
+  empdata: EmployeeData | null; // Should be a single object or null
+  empsdata: EmployeeData[]; // Array of employees
   isLoading: boolean;
   totalCount: number;
   create_emp: (data: CreateEpoylee) => Promise<any>;

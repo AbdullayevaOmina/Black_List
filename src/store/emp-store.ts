@@ -1,9 +1,10 @@
 import { create } from "zustand";
 import { GetAllEmployees, EmployeesStore } from "@emp-intf";
 import { emp_service } from "@service";
+
 const useEmpStore = create<EmployeesStore>((set) => ({
   empsdata: [],
-  empdata: [],
+  empdata: null,
   isLoading: false,
   totalCount: 1,
 
@@ -16,7 +17,7 @@ const useEmpStore = create<EmployeesStore>((set) => ({
           empdata: response.data.employee,
         });
       }
-      return response.status;
+      return response.status
     } catch (error) {
       console.error("get_emp error:", error);
     } finally {

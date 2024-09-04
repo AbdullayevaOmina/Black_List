@@ -24,7 +24,7 @@ const UsersPage = () => {
     position: search,
     limit: 10,
     offset: 1,
-  });  
+  });
 
   useEffect(() => {
     const params = new URLSearchParams(location.search);
@@ -91,7 +91,10 @@ const UsersPage = () => {
                             {eyeIcon}
                           </button>
                         </Tooltip>
-                        <EmployeeActionModal id={row.id}  isBlock={row.is_blocked}/>
+                        <EmployeeActionModal
+                          id={row.id}
+                          isBlock={row.is_blocked}
+                        />
                         <DeleteEmpModal id={row.id} />
                       </Table.Cell>
                     </Table.Row>

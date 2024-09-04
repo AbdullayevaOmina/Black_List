@@ -78,7 +78,7 @@ export default function Home() {
   } = useMonitoringStore();
 
   const location = useLocation();
-  const [params, setParams] = useState({ offset: 1, limit: 5 });
+  const [params, setParams] = useState({ offset: 1, limit: 10 });
   const role = getDataFromCookie("role") !== "user" && "employee";
 
   useEffect(() => {
@@ -102,27 +102,22 @@ export default function Home() {
     }));
   };
 
-  const TableAllHeader = [
+  const TableHeader = [
     { key: "FullName", value: "Full Name" },
     { key: "position", value: "Position" },
     { key: "blacklisted_at", value: "Blacklisted at" },
     { key: "reason", value: "Reason" },
   ];
 
-  const TableHeader = [
-    { key: "full_name", value: "Full Name" },
-    { key: "blacklisted_at", value: "Blacklisted at" },
-  ];
-
   return (
     <div className="m-4 md:ml-[275px] mt-[60px] rounded-xl">
       <div className="relative overflow-x-auto p-1">
-        <Tabs aria-label="Default tabs" className="custom-tabs">
+        <Tabs aria-label="Default tabs" className="custom-tabs w-full">
           {role && (
             <Tabs.Item active title="All">
               <TableContent
                 data={alldata}
-                headers={TableAllHeader}
+                headers={TableHeader}
                 isLoading={isLoading}
                 totalCount={AtotalCount}
                 changePage={changePage}

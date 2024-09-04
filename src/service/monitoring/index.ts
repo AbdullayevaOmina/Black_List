@@ -14,7 +14,7 @@ export const monitoring_service = {
       daily: daily.data.reports,
       weekly: weekly.data.reports,
       monthly: monthly.data.reports,
-      all: all.data.black_lists,
+      all: all.data.reports,
       counts: {
         dailyCount: Math.ceil(daily.data.count / params.limit),
         weeklyCount: Math.ceil(weekly.data.count / params.limit),
