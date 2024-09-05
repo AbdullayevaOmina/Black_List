@@ -41,7 +41,7 @@ const TableContent = ({
                       header.key === "DateOfBirth"
                         ? row[header.key].substring(0, 10)
                         : header.key === "reason"
-                        ? `${row[header.key].substring(0, 30)}`
+                        ? `${row[header.key].substring(0, 50)}`
                         : row[header.key]}
                     </Table.Cell>
                   ))}

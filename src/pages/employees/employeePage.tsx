@@ -1,7 +1,8 @@
 import { useEffect } from "react";
 import { useEmpStore } from "@store";
 import { getDataFromCookie } from "@cookie";
-import { EmployeeActionModal } from "@modals";
+import { DeleteEmpModal, EditEmpModal, EmployeeActionModal } from "@modals";
+import { Spinner } from "flowbite-react";
 
 const EmployeePage = () => {
   const { isLoading, get_emp, empdata } = useEmpStore();
@@ -14,9 +15,7 @@ const EmployeePage = () => {
   return (
     <div className="p-6 md:pl-[275px] pt-[62px] flex flex-col items-center">
       {isLoading ? (
-        <div className="flex justify-center items-center h-full">
-          <div className="spinner-border animate-spin inline-block w-8 h-8 border-4 rounded-full text-blue-600"></div>
-        </div>
+        <Spinner size="lg" />
       ) : (
         empdata && (
           <div className="bg-white dark:bg-gray-800 shadow-md rounded-lg p-6 w-full max-w-md">
@@ -43,7 +42,15 @@ const EmployeePage = () => {
                 </span>
               </p>
             </div>
-            <EmployeeActionModal id={id} isBlock={empdata?.is_blocked} />
+            <div className="flex justify-end pt-3">
+              <EmployeeActionModal id={id} isBlock={empdata?.is_blocked} />
+              <EditEmpModal
+                id={id}
+                oldPosition={empdata.position}
+                hr_id={empdata.hr_id}
+              />
+              <DeleteEmpModal id={id} />
+            </div>
           </div>
         )
       )}

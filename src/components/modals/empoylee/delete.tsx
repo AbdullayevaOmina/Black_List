@@ -6,7 +6,7 @@ import { HiOutlineExclamationCircle } from "react-icons/hi";
 import { useEmpStore } from "@store";
 import { toast } from "react-toastify";
 
-export function DeleteEmpModal(id: string | any) {
+export function DeleteEmpModal(id: any) {
   const [openModal, setOpenModal] = useState(false);
   const { delete_emp } = useEmpStore();
 

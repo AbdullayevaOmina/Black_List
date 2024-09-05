@@ -9,11 +9,8 @@ export interface CreateEpoylee {
 }
 
 export interface UpdateEpoylee {
-  id: any;
-  data: {
-    position: string;
-    hr_id: string;
-  };
+  position: string;
+  hr_id: string;
 }
 
 export interface BlockEpoylee {
@@ -32,11 +29,11 @@ interface EmployeeData {
 
 export interface EmployeesStore {
   empdata: EmployeeData | null;
-  empsdata: any[]; 
+  empsdata: any[];
   isLoading: boolean;
   totalCount: number;
   create_emp: (data: CreateEpoylee) => Promise<any>;
-  update_emp: (data: UpdateEpoylee) => Promise<any>;
+  update_emp: (id: any, data: UpdateEpoylee) => Promise<any>;
   block_emp: (data: BlockEpoylee) => Promise<any>;
   unblock_emp: (employee_id: string) => Promise<any>;
   delete_emp: (employee_id: string) => Promise<any>;
@@ -46,7 +43,7 @@ export interface EmployeesStore {
 
 export interface Request {
   create_emp: (data: CreateEpoylee) => unknown;
-  update_emp: ( data: UpdateEpoylee) => unknown;
+  update_emp: (id: any, data: UpdateEpoylee) => unknown;
   delete_emp: (employee_id: string) => unknown;
   block_emp: (data: BlockEpoylee) => unknown;
   unblock_emp: (employee_id: string) => unknown;

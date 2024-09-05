@@ -55,10 +55,16 @@ const useEmpStore = create<EmployeesStore>((set) => ({
     }
   },
 
-  update_emp: async (data) => {
+  update_emp: async (id, data) => {
     set({ isLoading: true });
     try {
-      const response: any = await emp_service.update_emp(data);
+      const response: any = await emp_service.update_emp(id, data);
+      if (response.status === 200) {
+        // Update empsdata state directly
+        set((state: any) => ({
+          empdata: { ...state.empdata, position: data.position },
+        }));
+      }
       return response.status;
     } catch (error) {
       console.error("create_emp error:", error);
@@ -77,6 +83,10 @@ const useEmpStore = create<EmployeesStore>((set) => ({
           empsdata: state.empsdata.map((emp: any) =>
             emp.id === data.employee_id ? { ...emp, is_blocked: "true" } : emp
           ),
+          empdata:
+            state.empdata.id === data.employee_id
+              ? { ...state.empdata, is_blocked: "true" }
+              : state.empdata,
         }));
       }
       return response.status;
@@ -97,6 +107,10 @@ const useEmpStore = create<EmployeesStore>((set) => ({
           empsdata: state.empsdata.map((emp: any) =>
             emp.id === employee_id ? { ...emp, is_blocked: "false" } : emp
           ),
+          empdata:
+            state.empdata.id === employee_id
+              ? { ...state.empdata, is_blocked: "false" }
+              : state.empdata,
         }));
       }
       return response.status;

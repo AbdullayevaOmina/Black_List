@@ -7,6 +7,7 @@ import { ChangeRTHRModal } from "./users/changeRoleToHR";
 
 import { DeleteEmpModal } from "./empoylee/delete";
 import { EmployeeActionModal } from "./empoylee/block-unblock";
+import { EditEmpModal } from "./empoylee/edit";
 
 import { DeleteHRModal } from "./hr/delete";
 
@@ -17,6 +18,7 @@ export {
   // emp
   DeleteEmpModal,
   EmployeeActionModal,
+  EditEmpModal,
 
   // user
   DeleteUserModal,

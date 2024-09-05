@@ -1,9 +1,9 @@
 "use client";
 import { useState } from "react";
+import { useEmpStore } from "@store";
 import { Button, Modal, Spinner, TextInput, Tooltip } from "flowbite-react";
 import { HiOutlineExclamationCircle } from "react-icons/hi";
 import { ErrorMessage, Field, Form, Formik } from "formik";
-import { useEmpStore } from "@store";
 import { blockIcon, unBlockIcon } from "@global-icons";
 import { schemaEmployeeBlock } from "@validations";
 import { toast } from "react-toastify";
@@ -16,7 +16,6 @@ interface EmployeeModalProps {
 export function EmployeeActionModal({ id, isBlock }: EmployeeModalProps) {
   const [openModal, setOpenModal] = useState(false);
   const { block_emp, unblock_emp } = useEmpStore();
-
   const onCloseModal = () => setOpenModal(false);
 
   const handleSubmit = async (value: any) => {

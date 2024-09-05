@@ -49,8 +49,8 @@ export const schemaSignup = Yup.object().shape({
 // ---------------------- employee ----------------------
 export const schemaEmployee = Yup.object().shape({
   position: Yup.string()
-    // .matches(/^[A-Za-z]+$/, "Position must contain only letters") // Regex to allow only letters
-    // .min(3, "Position must be at least 3 characters long") // Minimum of 3 characters
+  // .matches(/^[A-Za-z]+$/, "Position must contain only letters") // Regex to allow only letters
+  // .min(3, "Position must be at least 3 characters long") // Minimum of 3 characters
     .required("Position required"),
 });
 
