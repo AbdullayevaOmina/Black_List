@@ -1,9 +1,10 @@
 import { useEffect, useState, useCallback } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { Table, Tabs, Tooltip } from "flowbite-react";
+import { Card, ListGroup, Table, Tabs, Tooltip } from "flowbite-react";
 import { useMonitoringStore } from "@store";
 import { GlobalPagination, TableSkeleton } from "@ui";
 import { getDataFromCookie } from "@cookie";
+import { HiClock } from "react-icons/hi";
 
 const TableHeader = [
   { key: "FullName", value: "Full Name" },
@@ -80,10 +81,12 @@ const TableContent = ({
 export default function Home() {
   const {
     get_all_data,
+    get_logs,
     isLoading,
     dailydata,
     weeklydata,
     monthlydata,
+    logsdata,
     alldata,
     AtotalCount,
     DtotalCount,
@@ -95,9 +98,11 @@ export default function Home() {
   const navigate = useNavigate();
   const [params, setParams] = useState({ offset: 1, limit: 10 });
   const role = getDataFromCookie("role") !== "user" && "employee";
+  const superadmin = getDataFromCookie("role") === "superadmin";
 
   useEffect(() => {
     get_all_data(params);
+    get_logs({ offset: 1, limit: 100 });
   }, [params, get_all_data]);
 
   useEffect(() => {
@@ -151,6 +156,41 @@ export default function Home() {
                 />
               </Tabs.Item>
             ))}
+
+          {superadmin && (
+            <Tabs.Item title="Logs">
+              {logsdata && (
+                <div className="grid grid-cols-1 md:grid-cols-2 2xl:grid-cols-3 gap-6">
+                  {logsdata?.map((item: any, i: number) => (
+                    <Card key={i} className="shadow-md">
+                      <h5 className="text-lg font-bold mb-2">
+                        {item.FullName}
+                      </h5>
+                      <ListGroup>
+                        <ListGroup.Item>
+                          <span className="font-semibold mr-2">
+                            Action performed by:{" "}
+                          </span>
+                          {item.action_performed_by}
+                        </ListGroup.Item>
+                        <ListGroup.Item>
+                          <span className="font-semibold mr-2">Action: </span>
+                          {item.action}
+                        </ListGroup.Item>
+                        <ListGroup.Item>
+                          <span className="font-semibold flex items-center mr-2">
+                            <HiClock className="mr-2" />
+                            Timestamp:
+                          </span>
+                          {new Date(item.timestamp).toLocaleString()}
+                        </ListGroup.Item>
+                      </ListGroup>
+                    </Card>
+                  ))}
+                </div>
+              )}
+            </Tabs.Item>
+          )}
         </Tabs>
       </div>
     </div>

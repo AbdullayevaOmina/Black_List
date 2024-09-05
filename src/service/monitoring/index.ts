@@ -1,7 +1,9 @@
-import { GetReq } from "@monitoring-intf";
 import global_request from "../config/blacklist-config";
+import { GetReq } from "@monitoring-intf";
 
 export const monitoring_service = {
+  get_logs: (params: GetReq) =>
+    global_request.get(`blacklist/logs`, { params }),
   get_all_data: async (params: GetReq) => {
     const [daily, weekly, monthly, all] = await Promise.all([
       global_request.get(`blacklist/daily`, { params }),
