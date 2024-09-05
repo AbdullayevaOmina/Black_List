@@ -101,7 +101,7 @@ export default function Home() {
   const superadmin = getDataFromCookie("role") === "superadmin";
 
   useEffect(() => {
-    // get_all_data(params);
+    get_all_data(params);
     get_logs({ offset: 1, limit: 100 });
   }, [params, get_all_data]);
 
