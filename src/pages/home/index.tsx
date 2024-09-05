@@ -4,7 +4,7 @@ import { Card, ListGroup, Table, Tabs, Tooltip } from "flowbite-react";
 import { useMonitoringStore } from "@store";
 import { GlobalPagination, TableSkeleton } from "@ui";
 import { getDataFromCookie } from "@cookie";
-import { HiClock } from "react-icons/hi";
+import { HiClock, HiCheckCircle, HiUser } from "react-icons/hi";
 
 const TableHeader = [
   { key: "FullName", value: "Full Name" },
@@ -101,7 +101,7 @@ export default function Home() {
   const superadmin = getDataFromCookie("role") === "superadmin";
 
   useEffect(() => {
-    get_all_data(params);
+    // get_all_data(params);
     get_logs({ offset: 1, limit: 100 });
   }, [params, get_all_data]);
 
@@ -161,32 +161,50 @@ export default function Home() {
             <Tabs.Item title="Logs">
               {logsdata && (
                 <div className="grid grid-cols-1 md:grid-cols-2 2xl:grid-cols-3 gap-6">
-                  {logsdata?.map((item: any, i: number) => (
-                    <Card key={i} className="shadow-md">
-                      <h5 className="text-lg font-bold mb-2">
-                        {item.FullName}
-                      </h5>
-                      <ListGroup>
-                        <ListGroup.Item>
-                          <span className="font-semibold mr-2">
-                            Action performed by:{" "}
-                          </span>
-                          {item.action_performed_by}
-                        </ListGroup.Item>
-                        <ListGroup.Item>
-                          <span className="font-semibold mr-2">Action: </span>
-                          {item.action}
-                        </ListGroup.Item>
-                        <ListGroup.Item>
-                          <span className="font-semibold flex items-center mr-2">
-                            <HiClock className="mr-2" />
-                            Timestamp:
-                          </span>
-                          {new Date(item.timestamp).toLocaleString()}
-                        </ListGroup.Item>
-                      </ListGroup>
-                    </Card>
-                  ))}
+                  {logsdata
+                    ?.slice()
+                    .reverse()
+                    .map((item: any, i: number) => (
+                      <Card
+                        key={i}
+                        className="shadow-lg transition-transform transform text-white p-4 rounded-xl"
+                      >
+                        <h5 className="text-xl font-bold mb-2">
+                          {item.FullName}
+                        </h5>
+                        <ListGroup>
+                          <ListGroup.Item className="bg-transparent flex items-center">
+                            <HiUser className="mr-2 text-2xl text-green-400" />{" "}
+                            <span className="font-semibold mr-2">
+                              Performed by:
+                            </span>{" "}
+                            {item.action_performed_by}
+                          </ListGroup.Item>
+                          <ListGroup.Item className="bg-transparent flex items-center">
+                            <HiCheckCircle className="mr-2 text-2xl text-blue-400" />{" "}
+                            <span className="font-semibold mr-2">Action:</span>{" "}
+                            {item.action === "removed" ? (
+                              <span className="text-red-500">
+                                {item.action}
+                              </span>
+                            ) : (
+                              <span className="text-green-400">
+                                {item.action}
+                              </span>
+                            )}
+                          </ListGroup.Item>
+                          <ListGroup.Item className="bg-transparent flex justify-between items-center">
+                            <span className="font-semibold flex items-center mr-2">
+                              <HiClock className="mr-2 text-2xl text-yellow-300" />{" "}
+                              Timestamp:
+                            </span>
+                            <span className="text-sm text-gray-200">
+                              {new Date(item.timestamp).toLocaleString()}
+                            </span>
+                          </ListGroup.Item>
+                        </ListGroup>
+                      </Card>
+                    ))}
                 </div>
               )}
             </Tabs.Item>

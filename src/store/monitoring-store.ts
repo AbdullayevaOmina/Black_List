@@ -40,8 +40,6 @@ const useMonitoringStore = create<MonitoringStore>((set) => ({
     set({ isLoading: true });
     try {
       const response: any = await monitoring_service.get_logs(params);
-      console.log(response);
-
       if (response.status === 200) {
         set({
           logsdata: response.data.logs,
