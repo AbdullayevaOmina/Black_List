@@ -58,6 +58,12 @@ export function ChangeRTEModal(id: any) {
                       <TextInput
                         {...field}
                         placeholder="Position"
+                        onKeyDown={(e) => {
+                          // Prevent typing numbers
+                          if (/[0-9]/.test(e.key)) {
+                            e.preventDefault();
+                          }
+                        }}
                         helperText={
                           <ErrorMessage
                             name="position"
