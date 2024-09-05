@@ -1,6 +1,6 @@
 import { useEffect, useState, useCallback } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { Table, Tabs } from "flowbite-react";
+import { Table, Tabs, Tooltip } from "flowbite-react";
 import { useMonitoringStore } from "@store";
 import { GlobalPagination, TableSkeleton } from "@ui";
 import { getDataFromCookie } from "@cookie";
@@ -11,8 +11,6 @@ const TableHeader = [
   { key: "blacklisted_at", value: "Blacklisted at" },
   { key: "reason", value: "Reason" },
 ];
-
-import { Accordion } from "flowbite-react";
 
 const TableContent = ({
   data,
@@ -43,12 +41,9 @@ const TableContent = ({
                       header.key === "DateOfBirth" ? (
                         row[header.key].substring(0, 10)
                       ) : header.key === "reason" ? (
-                        <Accordion collapseAll>
-                          <Accordion.Panel>
-                            <Accordion.Title>dqew qweaew</Accordion.Title>
-                            <Accordion.Content>adfsdf</Accordion.Content>
-                          </Accordion.Panel>
-                        </Accordion>
+                        <Tooltip content={row[header.key]}>
+                          {row[header.key].substring(0, 10)}
+                        </Tooltip>
                       ) : (
                         row[header.key]
                       )}
