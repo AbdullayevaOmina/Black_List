@@ -1,22 +1,29 @@
-import { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useEffect, useState, useCallback } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import { Table, Tabs } from "flowbite-react";
 import { useMonitoringStore } from "@store";
 import { GlobalPagination, TableSkeleton } from "@ui";
 import { getDataFromCookie } from "@cookie";
 
+const TableHeader = [
+  { key: "FullName", value: "Full Name" },
+  { key: "position", value: "Position" },
+  { key: "blacklisted_at", value: "Blacklisted at" },
+  { key: "reason", value: "Reason" },
+];
+
 const TableContent = ({
   data,
-  headers,
   isLoading,
   totalCount,
   changePage,
+  curPage,
 }: any) => {
   return (
     <div>
       <Table className="bg-white dark:bg-gray-800 dark:border-gray-700 w-full rounded-lg">
         <Table.Head>
-          {headers.map((item: any) => (
+          {TableHeader.map((item: any) => (
             <Table.HeadCell key={item.key}>{item.value}</Table.HeadCell>
           ))}
         </Table.Head>
@@ -28,7 +35,7 @@ const TableContent = ({
                   key={row.Id}
                   className="bg-white dark:border-gray-700 dark:bg-gray-800"
                 >
-                  {headers.map((header: any) => (
+                  {TableHeader.map((header: any) => (
                     <Table.Cell key={header.key}>
                       {header.key === "blacklisted_at" ||
                       header.key === "DateOfBirth"
@@ -42,7 +49,10 @@ const TableContent = ({
               ))
             ) : (
               <Table.Row>
-                <Table.Cell colSpan={headers.length} className="text-center">
+                <Table.Cell
+                  colSpan={TableHeader.length}
+                  className="text-center"
+                >
                   No data available
                 </Table.Cell>
               </Table.Row>
@@ -54,7 +64,7 @@ const TableContent = ({
       </Table>
       {totalCount > 1 && (
         <GlobalPagination
-          currentPage={1}
+          currentPage={curPage}
           totalPages={totalCount}
           onPageChange={changePage}
         />
@@ -78,12 +88,13 @@ export default function Home() {
   } = useMonitoringStore();
 
   const location = useLocation();
+  const navigate = useNavigate();
   const [params, setParams] = useState({ offset: 1, limit: 10 });
   const role = getDataFromCookie("role") !== "user" && "employee";
 
   useEffect(() => {
     get_all_data(params);
-  }, [params]);
+  }, [params, get_all_data]);
 
   useEffect(() => {
     const params = new URLSearchParams(location.search);
@@ -95,62 +106,47 @@ export default function Home() {
     }));
   }, [location.search]);
 
-  const changePage = (value: number) => {
+  const changePage = useCallback((value: number) => {
     setParams((prevParams) => ({
       ...prevParams,
       offset: value,
     }));
-  };
+  }, []);
 
-  const TableHeader = [
-    { key: "FullName", value: "Full Name" },
-    { key: "position", value: "Position" },
-    { key: "blacklisted_at", value: "Blacklisted at" },
-    { key: "reason", value: "Reason" },
+  const handleChange = useCallback(() => {
+    const params = new URLSearchParams(location.search);
+    params.set("offset", "1");
+    navigate(`?${params}`);
+  }, [location.search, navigate]);
+
+  const tabsData = [
+    { title: "All", data: alldata, totalCount: AtotalCount },
+    { title: "Daily", data: dailydata, totalCount: DtotalCount },
+    { title: "Weekly", data: weeklydata, totalCount: WtotalCount },
+    { title: "Monthly", data: monthlydata, totalCount: MtotalCount },
   ];
 
   return (
     <div className="m-4 md:ml-[275px] mt-[60px] rounded-xl">
       <div className="relative overflow-x-auto p-1">
         <Tabs aria-label="Default tabs" className="custom-tabs w-full">
-          {role && (
-            <Tabs.Item active title="All">
-              <TableContent
-                data={alldata}
-                headers={TableHeader}
-                isLoading={isLoading}
-                totalCount={AtotalCount}
-                changePage={changePage}
-              />
-            </Tabs.Item>
-          )}
-          <Tabs.Item title="Daily">
-            <TableContent
-              data={dailydata}
-              headers={TableHeader}
-              isLoading={isLoading}
-              totalCount={DtotalCount}
-              changePage={changePage}
-            />
-          </Tabs.Item>
-          <Tabs.Item title="Weekly">
-            <TableContent
-              data={weeklydata}
-              headers={TableHeader}
-              isLoading={isLoading}
-              totalCount={WtotalCount}
-              changePage={changePage}
-            />
-          </Tabs.Item>
-          <Tabs.Item title="Monthly">
-            <TableContent
-              data={monthlydata}
-              headers={TableHeader}
-              isLoading={isLoading}
-              changePage={changePage}
-              totalCount={MtotalCount}
-            />
-          </Tabs.Item>
+          {role &&
+            tabsData.map((tab, index) => (
+              <Tabs.Item
+                key={index}
+                active={index === 0}
+                title={tab.title}
+                onClick={handleChange}
+              >
+                <TableContent
+                  data={tab.data}
+                  isLoading={isLoading}
+                  totalCount={tab.totalCount}
+                  changePage={changePage}
+                  curPage={params.offset}
+                />
+              </Tabs.Item>
+            ))}
         </Tabs>
       </div>
     </div>

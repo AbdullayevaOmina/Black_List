@@ -24,10 +24,20 @@ export const schemaResetPassword = Yup.object().shape({
 
 // ---------------------- Signup ----------------------
 export const schemaSignup = Yup.object().shape({
-  full_name: Yup.string().required("Full name is required"),
+  full_name: Yup.string()
+    .test(
+      "has-two-words",
+      "Full name must be at least two words long and each word must contain 3 or more letters",
+      (value) => {
+        if (!value) return false;
+        const words = value.trim().split(/\s+/);
+        return words.length >= 2 && words.every((word) => word.length >= 3);
+      }
+    )
+    .required("Full name is required"),
   username: Yup.string().required("User name is required"),
-  // date_of_birth: Yup.string().required("Date of birth is required"),
   email: Yup.string().email("Invalid email").required("Email is required"),
+  date_of_birth: Yup.string().required("Date of birth is required"),
   password: Yup.string()
     .matches(
       /^(?=.*[a-z])(?=.*[A-Z]).{6,}$/,

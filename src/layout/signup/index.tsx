@@ -13,6 +13,8 @@ export default function Signin() {
   const { signup, signin } = useAuthStore();
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
+  const today = new Date();
+
   const initialValues: Signup = {
     full_name: "",
     username: "",
@@ -27,7 +29,7 @@ export default function Signin() {
 
   const handleDateChange = (date: any, setFieldValue: any) => {
     const formattedDate = formatDate(date);
-    setFieldValue("date_of_birth", formattedDate); // Formik'ga sana qiymatini qo'shish
+    setFieldValue("date_of_birth", formattedDate);
   };
 
   const formatDate = (date: Date) => {
@@ -98,6 +100,7 @@ export default function Signin() {
                 showClearButton={false}
                 placeholder="Date of birth"
                 value={values.date_of_birth}
+                maxDate={today}
                 onSelectedDateChanged={(date) =>
                   handleDateChange(date, setFieldValue)
                 }

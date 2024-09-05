@@ -31,8 +31,8 @@ interface EmployeeData {
 }
 
 export interface EmployeesStore {
-  empdata: EmployeeData | null; // Should be a single object or null
-  empsdata: EmployeeData[]; // Array of employees
+  empdata: EmployeeData | null;
+  empsdata: any[]; 
   isLoading: boolean;
   totalCount: number;
   create_emp: (data: CreateEpoylee) => Promise<any>;
