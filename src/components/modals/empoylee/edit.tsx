@@ -44,7 +44,7 @@ export function EditEmpModal({ id, oldPosition, hr_id }: any) {
         <Modal.Body>
           <div className="space-y-6">
             <h3 className="text-2xl font-medium text-gray-900 dark:text-white text-center">
-              Edit employee role
+              Edit employee position
             </h3>
             <Formik
               initialValues={{ position: oldPosition }}

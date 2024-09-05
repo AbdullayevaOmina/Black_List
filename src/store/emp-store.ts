@@ -62,6 +62,9 @@ const useEmpStore = create<EmployeesStore>((set) => ({
       if (response.status === 200) {
         // Update empsdata state directly
         set((state: any) => ({
+          empsdata: state.empsdata.map((emp: any) =>
+            emp.id === id ? { ...emp, position: data.position } : emp
+          ),
           empdata: { ...state.empdata, position: data.position },
         }));
       }

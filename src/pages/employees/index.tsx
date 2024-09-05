@@ -2,11 +2,11 @@ import { useEffect, useState } from "react";
 import { useEmpStore } from "@store";
 import { GetAllEmployees } from "@emp-intf";
 import { GlobalPagination, GlobalSearch, TableSkeleton } from "@ui";
-import { DeleteEmpModal, EmployeeActionModal } from "@modals";
-import { Table, Tooltip } from "flowbite-react";
-import { eyeIcon } from "@global-icons";
-import { useLocation, useNavigate } from "react-router-dom";
-import { setDataToCookie } from "@cookie";
+import { DeleteEmpModal, EditEmpModal, EmployeeActionModal } from "@modals";
+import { useLocation } from "react-router-dom";
+import { Table } from "flowbite-react";
+// import { eyeIcon } from "@global-icons";
+// import { setDataToCookie } from "@cookie";
 
 const TableHeader = [
   { key: "FullName", value: "Full Name" },
@@ -17,7 +17,7 @@ const TableHeader = [
 
 const UsersPage = () => {
   const location = useLocation();
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const { empsdata, isLoading, totalCount, get_all_emp } = useEmpStore();
   const [search, setSearch] = useState("");
   const [params, setParams] = useState<GetAllEmployees>({
@@ -80,7 +80,7 @@ const UsersPage = () => {
                         </Table.Cell>
                       ))}
                       <Table.Cell className="flex gap-3">
-                        <Tooltip content="Look">
+                        {/* <Tooltip content="Look">
                           <button
                             onClick={() => {
                               setDataToCookie("emp_id", row.id);
@@ -90,7 +90,12 @@ const UsersPage = () => {
                           >
                             {eyeIcon}
                           </button>
-                        </Tooltip>
+                        </Tooltip> */}
+                        <EditEmpModal
+                          id={row.id}
+                          oldPosition={row.position}
+                          hr_id={row.hr_id}
+                        />
                         <EmployeeActionModal
                           id={row.id}
                           isBlock={row.is_blocked}

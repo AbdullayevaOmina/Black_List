@@ -3,10 +3,10 @@ import { useHRstore } from "@store";
 import { GetAllHR } from "@hr-intf";
 import { GlobalPagination, TableSkeleton } from "@ui";
 import { DeleteHRModal } from "@modals";
-import { Table, Tooltip } from "flowbite-react";
-import { eyeIcon } from "@global-icons";
-import { useNavigate } from "react-router-dom";
-import { setDataToCookie } from "@cookie";
+import { Table } from "flowbite-react";
+// import { useNavigate } from "react-router-dom";
+// import { setDataToCookie } from "@cookie";
+// import { eyeIcon } from "@global-icons";
 
 const TableHeader = [
   { key: "FullName", value: "Full Name" },
@@ -17,7 +17,7 @@ const TableHeader = [
 
 const HRsPage = () => {
   // const location = useLocation();
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const { get_all_hr, hrdata, isLoading, totalCount } = useHRstore();
   const [params, setParams] = useState<GetAllHR>({
     limit: 10,
@@ -76,7 +76,7 @@ const HRsPage = () => {
                         </Table.Cell>
                       ))}
                       <Table.Cell className="flex gap-3">
-                        <Tooltip content="Look">
+                        {/* <Tooltip content="Look">
                           <button
                             onClick={() => {
                               setDataToCookie("hr_id", row.id);
@@ -86,7 +86,7 @@ const HRsPage = () => {
                           >
                             {eyeIcon}
                           </button>
-                        </Tooltip>
+                        </Tooltip> */}
                         <DeleteHRModal id={row.id} />
                       </Table.Cell>
                     </Table.Row>

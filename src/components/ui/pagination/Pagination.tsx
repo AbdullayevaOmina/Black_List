@@ -20,10 +20,11 @@ export function GlobalPagination(props: PaginationProps) {
 
   return (
     <Pagination
-    className="mb-5"
+      className="mb-5"
       currentPage={props.currentPage}
       totalPages={props.totalPages}
       onPageChange={handleChange}
+      showIcons
     />
   );
 }

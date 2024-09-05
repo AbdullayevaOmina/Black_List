@@ -3,10 +3,10 @@ import { useUsersStore } from "@store";
 import { GetAllUsers } from "@users-intf";
 import { GlobalPagination, GlobalSearch, TableSkeleton } from "@ui";
 import { ChangeRTEModal, ChangeRTHRModal } from "@modals";
-import { Table, Tooltip } from "flowbite-react";
-import { eyeIcon } from "@global-icons";
-import { useLocation, useNavigate } from "react-router-dom";
-import { getDataFromCookie, setDataToCookie } from "@cookie";
+import { Table } from "flowbite-react";
+import { useLocation } from "react-router-dom";
+import { getDataFromCookie } from "@cookie";
+// import { eyeIcon } from "@global-icons";
 
 const TableHeader = [
   { key: "FullName", value: "Full Name" },
@@ -17,7 +17,7 @@ const TableHeader = [
 
 const UsersPage = () => {
   const location = useLocation();
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const { get_all_users, usersdata, isLoading, totalCount } = useUsersStore();
   const [search, setSearch] = useState("");
   const [role, setRole] = useState("");
@@ -84,7 +84,7 @@ const UsersPage = () => {
                       </Table.Cell>
                     ))}
                     <Table.Cell className="flex gap-3">
-                      <Tooltip content="Look">
+                      {/* <Tooltip content="Look">
                         <button
                           onClick={() => {
                             setDataToCookie("user_id", row.Id);
@@ -94,7 +94,7 @@ const UsersPage = () => {
                         >
                           {eyeIcon}
                         </button>
-                      </Tooltip>
+                      </Tooltip> */}
                       {(role === "superadmin" || role === "admin") && (
                         <ChangeRTHRModal id={row.Id} />
                       )}
