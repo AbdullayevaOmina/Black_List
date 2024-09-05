@@ -12,6 +12,8 @@ const TableHeader = [
   { key: "reason", value: "Reason" },
 ];
 
+import { Accordion } from "flowbite-react";
+
 const TableContent = ({
   data,
   isLoading,
@@ -38,11 +40,18 @@ const TableContent = ({
                   {TableHeader.map((header: any) => (
                     <Table.Cell key={header.key}>
                       {header.key === "blacklisted_at" ||
-                      header.key === "DateOfBirth"
-                        ? row[header.key].substring(0, 10)
-                        : header.key === "reason"
-                        ? `${row[header.key].substring(0, 50)}`
-                        : row[header.key]}
+                      header.key === "DateOfBirth" ? (
+                        row[header.key].substring(0, 10)
+                      ) : header.key === "reason" ? (
+                        <Accordion collapseAll>
+                          <Accordion.Panel>
+                            <Accordion.Title>dqew qweaew</Accordion.Title>
+                            <Accordion.Content>adfsdf</Accordion.Content>
+                          </Accordion.Panel>
+                        </Accordion>
+                      ) : (
+                        row[header.key]
+                      )}
                     </Table.Cell>
                   ))}
                 </Table.Row>

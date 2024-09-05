@@ -81,6 +81,19 @@ export const eyeIcon = (
     />
   </svg>
 );
+
+export const threeDotsIcon = (
+  <svg
+    className="w-4 h-4 2xl:w-5 2xl:h-5 mr-2 text-gray-600 dark:bg-gray-400 dark:hover:text-white "
+    aria-hidden="true"
+    fill="currentColor"
+    viewBox="0 0 20 20"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path d="M6 10a2 2 0 11-4 0 2 2 0 014 0zM12 10a2 2 0 11-4 0 2 2 0 014 0zM16 12a2 2 0 100-4 2 2 0 000 4z" />
+  </svg>
+);
+
 export const changeRoleIcon = (
   <svg
     className="w-4 h-4 2xl:w-5 2xl:h-5 mr-2 text-gray-800 dark:text-white"

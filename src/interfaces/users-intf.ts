@@ -22,7 +22,7 @@ export interface GetUser {
 
 export interface UsersStore {
   userdata: GetUser | null;
-  usersdata: GetUser[];
+  usersdata: any[];
   isLoading: boolean;
   totalCount: number;
   get_all_users: (params: GetAllUsers) => Promise<any>;
