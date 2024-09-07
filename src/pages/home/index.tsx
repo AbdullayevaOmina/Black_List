@@ -183,15 +183,15 @@ export default function Home() {
                           <ListGroup.Item className="bg-transparent flex items-center">
                             <HiCheckCircle className="mr-2 text-2xl text-blue-400" />{" "}
                             <span className="font-semibold mr-2">Action:</span>{" "}
-                            {item.action === "removed" ? (
-                              <span className="text-red-500">
-                                {item.action}
-                              </span>
-                            ) : (
-                              <span className="text-green-400">
-                                {item.action}
-                              </span>
-                            )}
+                            <span
+                              className={
+                                item.action === "removed"
+                                  ? "text-green-400"
+                                  : "text-red-500"
+                              }
+                            >
+                              {item.action}
+                            </span>
                           </ListGroup.Item>
                           <ListGroup.Item className="bg-transparent flex justify-between items-center">
                             <span className="font-semibold flex items-center mr-2">
