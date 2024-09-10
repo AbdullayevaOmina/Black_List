@@ -81,15 +81,14 @@ const useEmpStore = create<EmployeesStore>((set) => ({
     try {
       const response: any = await emp_service.block_emp(data);
       if (response.status === 200) {
-        // Update empsdata state directly
         set((state: any) => ({
           empsdata: state.empsdata.map((emp: any) =>
             emp.id === data.employee_id ? { ...emp, is_blocked: "true" } : emp
           ),
           empdata:
-            state.empdata.id === data.employee_id
+            state.empdata && state.empdata.id === data.employee_id
               ? { ...state.empdata, is_blocked: "true" }
-              : state.empdata,
+              : state.empdata, // Handle the case where empdata is null
         }));
       }
       return response.status;
@@ -99,21 +98,19 @@ const useEmpStore = create<EmployeesStore>((set) => ({
       set({ isLoading: false });
     }
   },
-
   unblock_emp: async (employee_id: string) => {
     set({ isLoading: true });
     try {
       const response: any = await emp_service.unblock_emp(employee_id);
       if (response.status === 200) {
-        // Update empsdata state directly
         set((state: any) => ({
           empsdata: state.empsdata.map((emp: any) =>
             emp.id === employee_id ? { ...emp, is_blocked: "false" } : emp
           ),
           empdata:
-            state.empdata.id === employee_id
+            state.empdata && state.empdata.id === employee_id
               ? { ...state.empdata, is_blocked: "false" }
-              : state.empdata,
+              : state.empdata, // Handle the case when empdata is null
         }));
       }
       return response.status;
@@ -123,7 +120,6 @@ const useEmpStore = create<EmployeesStore>((set) => ({
       set({ isLoading: false });
     }
   },
-
   delete_emp: async (employee_id: string) => {
     set({ isLoading: true });
     try {
