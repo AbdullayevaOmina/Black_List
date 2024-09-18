@@ -134,6 +134,8 @@ export default function Home() {
     { title: "Weekly", data: weeklydata, totalCount: WtotalCount },
     { title: "Monthly", data: monthlydata, totalCount: MtotalCount },
   ];
+  console.log(get_all_data);
+  
 
   return (
     <div className="m-4 md:ml-[275px] mt-[60px] rounded-xl">
